@@ -1,0 +1,16 @@
+{
+    "go.goroot": "D:\\go",
+    "go.gopath": "D:\\goproject",
+    "go.gotoSymbol.includeGoroot": true,
+    "go.gotoSymbol.includeImports": true, 
+    "go.useLanguageServer": true,
+    "go.autocompleteUnimportedPackages": true,
+    "go.coverOnTestPackage": false,
+    "debug.console.fontSize": 16,
+    "editor.fontSize": 15,
+    "go.lintFlags": [
+        "--disable=varcheck"
+    ],
+    "workbench.editor.enablePreview": false
+    //"http.proxy": "http://127.0.0.1:7890"
+}

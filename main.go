@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"algor/linklist"
+)
 
 func main() {
-	fmt.Println("112")
+	linklist.LinkTest()
 }
