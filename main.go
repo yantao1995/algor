@@ -1,9 +1,13 @@
 package main
 
 import (
-	"algor/linklist"
+	"algor/queue"
 )
 
 func main() {
-	linklist.LinkTest()
+	//linklist.TestLink()
+	//linklist.TestDoubleLink()
+	//tree.TestBinary()
+	//stack.TestStack()
+	queue.TestQueue()
 }

@@ -18,7 +18,7 @@ func Init(data string) *Link {
 	}
 }
 
-//AppendByIndexTail 按位置添加之后
+//AppendByIndexTail 按位置添加在之后
 func (l *Link) AppendByIndexTail(i int, data string) bool {
 	index := 1
 	flag := false
@@ -121,8 +121,19 @@ func ReverseOrder(l *Link) *Link {
 	return prev
 }
 
-//LinkTest 测试
-func LinkTest() {
+//ReverseOrderByRecursion 逆序 递归
+func ReverseOrderByRecursion(l *Link) *Link {
+	if l.Next != nil {
+		newLink := ReverseOrderByRecursion(l.Next)
+		l.Next.Next = l
+		l.Next = nil
+		return newLink
+	}
+	return l
+}
+
+//TestLink 测试
+func TestLink() {
 	head := Init("0")
 	head.AppendOnTailPoint("1").AppendOnTailPoint("2") //指针接收  尾插
 	AppendOnHead(&head, "3")                           //普通   头插
@@ -137,5 +148,7 @@ func LinkTest() {
 	head = head.ReverseOrderByHeadInsert() //指针接收 头插法逆序
 	head.Print()
 	head = ReverseOrder(head)
+	head.Print()
+	head = ReverseOrderByRecursion(head)
 	head.Print()
 }
