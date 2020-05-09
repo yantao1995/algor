@@ -17,39 +17,39 @@ func InitBinary(dt string) *Binary {
 }
 
 //先
-func firstErgodic(root *Binary) {
+func FirstErgodic(root *Binary) {
 	if root != nil {
 		fmt.Printf("%s\t", root.Data)
-		firstErgodic(root.Left)
-		firstErgodic(root.Right)
+		FirstErgodic(root.Left)
+		FirstErgodic(root.Right)
 	}
 }
 
 //中
-func middleErgodic(root *Binary) {
+func MiddleErgodic(root *Binary) {
 	if root != nil {
-		firstErgodic(root.Left)
+		MiddleErgodic(root.Left)
 		fmt.Printf("%s\t", root.Data)
-		firstErgodic(root.Right)
+		MiddleErgodic(root.Right)
 	}
 }
 
 //后
-func lastErgodic(root *Binary) {
+func LastErgodic(root *Binary) {
 	if root != nil {
-		firstErgodic(root.Left)
-		firstErgodic(root.Right)
+		LastErgodic(root.Left)
+		LastErgodic(root.Right)
 		fmt.Printf("%s\t", root.Data)
 	}
 }
 
 //深度
-func deepErgodic() {
+func DeepErgodic() {
 
 }
 
 //广度
-func wideErgodic(root *Binary) {
+func WideErgodic(root *Binary) {
 	for root != nil {
 		fmt.Printf("%s\t", root.Data)
 		root = root.Left
@@ -57,11 +57,11 @@ func wideErgodic(root *Binary) {
 }
 
 //拷贝
-func copyBinary() {
+func CopyBinary() {
 
 }
 
-/*
+/*  测试结构
 		  a
 	b_____|_____c
 d___|___e   f___|___g
@@ -70,17 +70,17 @@ d___|___e   f___|___g
 
 func TestBinary() {
 	root := InitBinary("a")
-	LoadBinary(root)
-	firstErgodic(root)
+	LoadTestBinary(root)
+	FirstErgodic(root)
 	println()
-	middleErgodic(root)
+	MiddleErgodic(root)
 	println()
-	lastErgodic(root)
+	LastErgodic(root)
 	println()
 }
 
 // 加载treenodes
-func LoadBinary(root *Binary) {
+func LoadTestBinary(root *Binary) {
 	root.Left = &Binary{
 		Data: "b",
 		Left: &Binary{

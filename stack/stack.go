@@ -2,44 +2,56 @@ package stack
 
 import "fmt"
 
-//size - top  = 1
+const popNilVaule = "nil"
+
+type stackType string
+
+//Stack ..
 type Stack struct {
-	StackSlice []string
+	StackSlice []stackType
 	Size       int
-	Top        int //栈顶指针
+	Top        int //栈顶
 }
 
 //入
-func (s *Stack) Push(str string) *Stack {
-	if s.Size != 0 {
-		if s.Top < s.Size-1 {
-			s.Top++
-			s.StackSlice[s.Top] = str
-			return s
-		}
+func (s *Stack) Push(str stackType) *Stack {
+	if s.Size > 0 {
+		s.Top++
 	}
-	s.StackSlice = append(s.StackSlice, str)
+	if s.Size < len(s.StackSlice) { //复用
+		s.StackSlice[s.Top] = str
+	} else {
+		s.StackSlice = append(s.StackSlice, str)
+	}
 	s.Size++
-	s.Top = len(s.StackSlice) - 1
-
 	return s
 }
 
 //出
-func (s *Stack) Pop() {
+func (s *Stack) Pop() *Stack {
 	if s.Top >= 0 {
-		fmt.Printf("%s\t", s.StackSlice[s.Top])
-		s.Top--
+		fmt.Printf("%v\t", s.StackSlice[s.Top])
+		s.StackSlice[s.Top] = popNilVaule
+		if s.Size != 0 {
+			s.Top--
+		}
+		s.Size--
+		println()
+	} else {
+		println(popNilVaule)
 	}
-	println()
+	return s
 }
 
 //全出
 func (s *Stack) PopAll() {
-	for s.Top >= 0 {
-		fmt.Printf("%s\t", s.StackSlice[s.Top])
+	for s.Top > -1 {
+		fmt.Printf("%v\t", s.StackSlice[s.Top])
+		s.StackSlice[s.Top] = popNilVaule
 		s.Top--
+		s.Size--
 	}
+	s.Top++
 	println()
 }
 
@@ -48,8 +60,15 @@ func TestStack() {
 	stack := new(Stack)
 	fmt.Println(stack)
 	stack.Push("1").Push("2").Push("3").Push("4")
-	stack.Pop()
-	stack.Push("5")
-	stack.Pop()
+	fmt.Println(stack)
+	stack.Pop().Pop().Pop()
+	fmt.Println(stack)
+	stack.Push("6").Push("7").Push("8").Push("9").Push("10")
+	fmt.Println(stack)
 	stack.PopAll()
+	fmt.Println(stack)
+	stack.Push("1").Push("2").Push("3").Push("4")
+	fmt.Println(stack)
+	stack.PopAll()
+	fmt.Println(stack)
 }

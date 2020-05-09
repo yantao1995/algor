@@ -4,14 +4,16 @@ import (
 	"fmt"
 )
 
+type linkType string
+
 //Link one way
 type Link struct {
 	Next *Link
-	Data string
+	Data linkType
 }
 
 //Init ...
-func Init(data string) *Link {
+func Init(data linkType) *Link {
 	return &Link{
 		Next: nil,
 		Data: data,
@@ -19,7 +21,7 @@ func Init(data string) *Link {
 }
 
 //AppendByIndexTail 按位置添加在之后
-func (l *Link) AppendByIndexTail(i int, data string) bool {
+func (l *Link) AppendByIndexTail(i int, data linkType) bool {
 	index := 1
 	flag := false
 	for l != nil {
@@ -38,7 +40,7 @@ func (l *Link) AppendByIndexTail(i int, data string) bool {
 }
 
 //AppendByDateEqualsTail 按数据是否相等添加在之后
-func (l *Link) AppendByDateEqualsTail(origin, data string) bool {
+func (l *Link) AppendByDateEqualsTail(origin, data linkType) bool {
 	flag := false
 	for l != nil {
 		if l.Data == origin {
@@ -56,7 +58,7 @@ func (l *Link) AppendByDateEqualsTail(origin, data string) bool {
 }
 
 //AppendOnHeadPoint 头 指针接收器
-func (l *Link) AppendOnHeadPoint(data string) *Link {
+func (l *Link) AppendOnHeadPoint(data linkType) *Link {
 	return &Link{
 		Next: l,
 		Data: data,
@@ -64,7 +66,7 @@ func (l *Link) AppendOnHeadPoint(data string) *Link {
 }
 
 //AppendOnHead 头
-func AppendOnHead(l **Link, data string) {
+func AppendOnHead(l **Link, data linkType) {
 	head := Link{
 		Next: *l,
 		Data: data,
@@ -73,7 +75,7 @@ func AppendOnHead(l **Link, data string) {
 }
 
 //AppendOnTailPoint 尾 指针接收器
-func (l *Link) AppendOnTailPoint(data string) *Link {
+func (l *Link) AppendOnTailPoint(data linkType) *Link {
 	for l.Next != nil {
 		l = l.Next
 	}
@@ -82,7 +84,7 @@ func (l *Link) AppendOnTailPoint(data string) *Link {
 }
 
 //AppendOnTail 尾
-func AppendOnTail(l *Link, data string) {
+func AppendOnTail(l *Link, data linkType) {
 	for l.Next != nil {
 		l = l.Next
 	}
