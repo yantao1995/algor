@@ -1,19 +1,18 @@
 package linklist
 
 import (
+	"algor/vals"
 	"fmt"
 )
-
-type linkType string
 
 //Link one way
 type Link struct {
 	Next *Link
-	Data linkType
+	Data vals.AlgorType
 }
 
 //Init ...
-func Init(data linkType) *Link {
+func Init(data vals.AlgorType) *Link {
 	return &Link{
 		Next: nil,
 		Data: data,
@@ -21,7 +20,7 @@ func Init(data linkType) *Link {
 }
 
 //AppendByIndexTail 按位置添加在之后
-func (l *Link) AppendByIndexTail(i int, data linkType) bool {
+func (l *Link) AppendByIndexTail(i int, data vals.AlgorType) bool {
 	index := 1
 	flag := false
 	for l != nil {
@@ -40,7 +39,7 @@ func (l *Link) AppendByIndexTail(i int, data linkType) bool {
 }
 
 //AppendByDateEqualsTail 按数据是否相等添加在之后
-func (l *Link) AppendByDateEqualsTail(origin, data linkType) bool {
+func (l *Link) AppendByDateEqualsTail(origin, data vals.AlgorType) bool {
 	flag := false
 	for l != nil {
 		if l.Data == origin {
@@ -58,7 +57,7 @@ func (l *Link) AppendByDateEqualsTail(origin, data linkType) bool {
 }
 
 //AppendOnHeadPoint 头 指针接收器
-func (l *Link) AppendOnHeadPoint(data linkType) *Link {
+func (l *Link) AppendOnHeadPoint(data vals.AlgorType) *Link {
 	return &Link{
 		Next: l,
 		Data: data,
@@ -66,7 +65,7 @@ func (l *Link) AppendOnHeadPoint(data linkType) *Link {
 }
 
 //AppendOnHead 头
-func AppendOnHead(l **Link, data linkType) {
+func AppendOnHead(l **Link, data vals.AlgorType) {
 	head := Link{
 		Next: *l,
 		Data: data,
@@ -75,7 +74,7 @@ func AppendOnHead(l **Link, data linkType) {
 }
 
 //AppendOnTailPoint 尾 指针接收器
-func (l *Link) AppendOnTailPoint(data linkType) *Link {
+func (l *Link) AppendOnTailPoint(data vals.AlgorType) *Link {
 	for l.Next != nil {
 		l = l.Next
 	}
@@ -84,7 +83,7 @@ func (l *Link) AppendOnTailPoint(data linkType) *Link {
 }
 
 //AppendOnTail 尾
-func AppendOnTail(l *Link, data linkType) {
+func AppendOnTail(l *Link, data vals.AlgorType) {
 	for l.Next != nil {
 		l = l.Next
 	}

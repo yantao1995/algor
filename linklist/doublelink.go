@@ -1,11 +1,12 @@
 package linklist
 
 import (
+	"algor/vals"
 	"fmt"
 )
 
 type Node struct {
-	Data linkType
+	Data vals.AlgorType
 	Prev *Node
 	Next *Node
 }
@@ -25,7 +26,7 @@ func InitDoubleLink() *DoubleLink {
 }
 
 //AppendOnTail 添加在末尾
-func (dl *DoubleLink) AppendOnTail(data linkType) *DoubleLink {
+func (dl *DoubleLink) AppendOnTail(data vals.AlgorType) *DoubleLink {
 	node := &Node{
 		Data: data,
 		Prev: nil,
@@ -44,7 +45,7 @@ func (dl *DoubleLink) AppendOnTail(data linkType) *DoubleLink {
 }
 
 //AppendOnHead 添加在头节点
-func (dl *DoubleLink) AppendOnHead(data linkType) *DoubleLink {
+func (dl *DoubleLink) AppendOnHead(data vals.AlgorType) *DoubleLink {
 	node := &Node{
 		Data: data,
 		Prev: nil,
@@ -63,7 +64,7 @@ func (dl *DoubleLink) AppendOnHead(data linkType) *DoubleLink {
 }
 
 //AddNodeByIndex 按位置添加节点,在第几个结点之后添加 从0开始  ,0表示头部
-func (dl *DoubleLink) AddNodeByIndex(index int, data linkType) *DoubleLink {
+func (dl *DoubleLink) AddNodeByIndex(index int, data vals.AlgorType) *DoubleLink {
 	newnode := &Node{
 		Data: data,
 		Prev: nil,
@@ -129,7 +130,7 @@ func (dl *DoubleLink) DelNodeByIndex(index int) *DoubleLink {
 func (dl *DoubleLink) PrintFromHead() {
 	head := dl.Head
 	for head != nil {
-		fmt.Printf("%s ", head.Data)
+		fmt.Printf("%v ", head.Data)
 		head = head.Next
 	}
 	fmt.Println("\ndouble link size = ", dl.Size)
@@ -139,7 +140,7 @@ func (dl *DoubleLink) PrintFromHead() {
 func (dl *DoubleLink) PrintFromTail() {
 	tail := dl.Tail
 	for tail != nil {
-		fmt.Printf("%s ", tail.Data)
+		fmt.Printf("%v ", tail.Data)
 		tail = tail.Prev
 	}
 	fmt.Println("\ndouble link size = ", dl.Size)

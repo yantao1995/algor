@@ -1,11 +1,16 @@
 package main
 
-import "algor/linklist"
+import "algor/graph"
 
 func main() {
+	debug()
+}
+
+func debug() {
 	//linklist.TestLink()
-	linklist.TestDoubleLink()
+	//linklist.TestDoubleLink()
 	//stack.TestStack()
 	//queue.TestQueue()
 	//tree.TestBinary()
+	graph.TestGraph()
 }
