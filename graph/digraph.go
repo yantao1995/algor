@@ -9,7 +9,7 @@ import (
 
 const (
 	MaxEdge = 5     //结点数
-	Unable  = -9999 //不可达值
+	Unable  = 99999 //不可达值
 )
 
 //有向图
@@ -61,15 +61,32 @@ func (gph Graph) DFS(start int) {
 	}
 }
 
-//Dijkstra 单源最短路径   带权有向图
-func (gph Graph) Dijkstra(start, end int) {
+//Dijkstra 单源最短路径   带权图 (有向 无向)
+func (gph Graph) Dijkstra(start int) [MaxEdge]int {
 	dist := [MaxEdge]int{} //初始化 路径参数
-	for i := start; i < MaxEdge; i++ {
+	for i := 0; i < MaxEdge; i++ {
 		dist[i] = gph.EdgesWeight[start][i]
 	}
+	dist[start] = 0
+	gph.Visited[start] = true
 	for i := 0; i < MaxEdge; i++ { // dijkstra
-
+		t := 0
+		min := Unable
+		for j := 0; j < MaxEdge; j++ {
+			if !gph.Visited[j] && dist[j] < min {
+				min = dist[j]
+				t = j
+			}
+		}
+		gph.Visited[t] = true
+		for u := 0; u < MaxEdge; u++ {
+			if !gph.Visited[u] && gph.EdgesWeight[t][u] != Unable &&
+				min+gph.EdgesWeight[t][u] < dist[u] {
+				dist[u] = min + gph.EdgesWeight[t][u]
+			}
+		}
 	}
+	return dist
 }
 
 /*		结构
@@ -81,12 +98,14 @@ func (gph Graph) Dijkstra(start, end int) {
 //TestGraph 测试
 func TestGraph() {
 	gph := InitGraph()
-	start := 0 //  小于 MaxEdge
+	start := 1 //  小于 MaxEdge
 	println("start:", start, "广度BFS:")
 	gph.BFS(start)
 	println("\nstart:", start, "深度DFS:")
 	gph.DFS(start)
-	println("\nDijstra:")
+	println("\nDijkstra:")
+	dist := gph.Dijkstra(start)
+	fmt.Println(dist)
 }
 
 /*
@@ -113,6 +132,8 @@ func InitGraph() Graph {
 			graph.EdgesWeight[i][j] = Unable
 		}
 	}
+	// graph.EdgesWeight[1][0] = 12
+	// graph.EdgesWeight[2][0] = 10
 	graph.EdgesWeight[0][1] = 12
 	graph.EdgesWeight[0][2] = 10
 	graph.EdgesWeight[0][3] = 25
