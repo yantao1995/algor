@@ -30,7 +30,7 @@ func (gph Graph) BFS(start int) {
 	for q.Size > 0 {
 		index := q.RPop()
 		for j := start; j < MaxEdge; j++ {
-			if !gph.Visited[j] && gph.EdgesWeight[index.(int)][j] != Unable {
+			if !gph.Visited[j] && gph.EdgesWeight[vals.GetInt(index)][j] != Unable {
 				fmt.Printf("%v\t", gph.VexValue[j])
 				q.LPush(j)
 				gph.Visited[j] = true
@@ -48,7 +48,7 @@ func (gph Graph) DFS(start int) {
 	for s.Size > 0 {
 		index := s.GetTopButNoPop() // 获取当前结点
 		for i := start; i < MaxEdge; i++ {
-			if !gph.Visited[i] && gph.EdgesWeight[index.(int)][i] != Unable {
+			if !gph.Visited[i] && gph.EdgesWeight[vals.GetInt(index)][i] != Unable {
 				s.Push(i)
 				fmt.Printf("%v\t", gph.VexValue[i])
 				gph.Visited[i] = true
@@ -98,7 +98,7 @@ func (gph Graph) Dijkstra(start int) [MaxEdge]int {
 //TestGraph 测试
 func TestGraph() {
 	gph := InitGraph()
-	start := 1 //  小于 MaxEdge
+	start := 0 //  小于 MaxEdge
 	println("start:", start, "广度BFS:")
 	gph.BFS(start)
 	println("\nstart:", start, "深度DFS:")

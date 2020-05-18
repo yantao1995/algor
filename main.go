@@ -1,6 +1,6 @@
 package main
 
-import "algor/graph"
+import "algor/search"
 
 func main() {
 	debug()
@@ -12,5 +12,6 @@ func debug() {
 	//stack.TestStack()
 	//queue.TestQueue()
 	//tree.TestBinary()
-	graph.TestGraph()
+	//graph.TestGraph()
+	search.TestSearch()
 }
