@@ -18,9 +18,10 @@ func GreaterThanInt(prev, next AlgorType) bool {
 
 //GreaterThanInt interface{}转int  等于
 func EquelsInt(prev, next AlgorType) bool {
-	return prev.(int) > next.(int)
+	return prev.(int) == next.(int)
 }
 
+//GetInt 获取自定义默认int类型
 func GetInt(at AlgorType) int {
 	return at.(int)
 }

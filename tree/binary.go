@@ -232,3 +232,248 @@ func LoadTestBinary(root *Binary) {
 		},
 	}
 }
+
+//BSTBinary 二叉排序树
+type BSTBinary struct {
+	Data  BSTData
+	Left  *BSTBinary
+	Right *BSTBinary
+}
+
+//BSTData 二叉排序树数据类型
+type BSTData struct {
+	Key   vals.AlgorType // 排序依据
+	Value vals.AlgorType //存储数据
+}
+
+/*  测试结构
+		  10a
+	6b_____|_____15f
+2c___|___8d   13g___|___17h
+
+*/
+
+//BSTInitTestSearch 二叉搜索树模拟测试节点
+func BSTInitTestSearch() *BSTBinary {
+	root := &BSTBinary{
+		Data: BSTData{
+			Key:   10,
+			Value: "a",
+		},
+	}
+	root.Left = &BSTBinary{
+		Data: BSTData{
+			Key:   6,
+			Value: "b",
+		},
+		Left: &BSTBinary{
+			Data: BSTData{
+				Key:   2,
+				Value: "c",
+			},
+			Left:  nil,
+			Right: nil,
+		},
+		Right: &BSTBinary{
+			Data: BSTData{
+				Key:   8,
+				Value: "d",
+			},
+			Left:  nil,
+			Right: nil,
+		},
+	}
+
+	root.Right = &BSTBinary{
+		Data: BSTData{
+			Key:   15,
+			Value: "f",
+		},
+		Left: &BSTBinary{
+			Data: BSTData{
+				Key:   13,
+				Value: "g",
+			},
+			Left:  nil,
+			Right: nil,
+		},
+		Right: &BSTBinary{
+			Data: BSTData{
+				Key:   17,
+				Value: "h",
+			},
+			Left:  nil,
+			Right: nil,
+		},
+	}
+	return root
+}
+
+//BSTInsertNode 二叉搜索树节点添加
+func (bst *BSTBinary) BSTInsertNode(key, value vals.AlgorType) bool {
+	if bstSearch(bst, key) != nil {
+		return false
+	}
+	if vals.LessThanInt(key, bst.Data.Key) {
+		if bst.Left != nil {
+			bst.Left.BSTInsertNode(key, value)
+		} else {
+			bst.Left = &BSTBinary{
+				Data: BSTData{
+					Key:   key,
+					Value: value,
+				},
+				Left:  nil,
+				Right: nil,
+			}
+		}
+	} else {
+		if bst.Right != nil {
+			bst.Right.BSTInsertNode(key, value)
+		} else {
+			bst.Right = &BSTBinary{
+				Data: BSTData{
+					Key:   key,
+					Value: value,
+				},
+				Left:  nil,
+				Right: nil,
+			}
+		}
+	}
+	return true
+}
+
+//BSTDelNode 二叉搜索树节点删除
+func (bst *BSTBinary) BSTDelNode(key vals.AlgorType) bool {
+	var isleft bool
+	var parentNode *BSTBinary
+	for bst != nil {
+		if vals.LessThanInt(key, bst.Data.Key) {
+			if bst.Left == nil {
+				return false
+			}
+			parentNode = bst
+			bst = bst.Left
+			isleft = true
+		} else if vals.GreaterThanInt(key, bst.Data.Key) {
+			if bst.Right == nil {
+				return false
+			}
+			parentNode = bst
+			bst = bst.Right
+			isleft = false
+		} else {
+			break
+		}
+	}
+	return bst.bstDelete(parentNode, isleft)
+}
+
+//bstDelete bst节点删除子树拼接  [保证中序遍历其他元素相对位置不变]
+func (bst *BSTBinary) bstDelete(parentNode *BSTBinary, isleft bool) bool {
+	if bst.Right == nil && bst.Left == nil { //叶子节点
+		if isleft {
+			parentNode.Left = nil
+		} else {
+			parentNode.Right = nil
+		}
+	} else if bst.Right == nil { //右子树为空
+		parentNode.Left = bst.Left
+	} else if bst.Left == nil { //左子树为空
+		parentNode.Right = bst.Right
+	} else {
+		temp := bst
+		current := bst.Left
+		for current.Right != nil {
+			temp = current
+			current = current.Right
+		}
+		bst.Data = current.Data
+		if temp != bst {
+			temp.Right = current.Left
+		} else {
+			temp.Left = current.Left
+		}
+	}
+	return true
+}
+
+//bstSearch 二叉搜索树
+func bstSearch(root *BSTBinary, key vals.AlgorType) *BSTBinary {
+	if root != nil {
+		if vals.EquelsInt(key, root.Data.Key) {
+			return root
+		} else if vals.LessThanInt(key, root.Data.Key) { //小于
+			return bstSearch(root.Left, key)
+		} else {
+			return bstSearch(root.Right, key)
+		}
+	} else {
+		return nil
+	}
+}
+
+//WideErgodicBST 搜索树 广度 层次 队列
+func WideErgodicBST(root *BSTBinary) {
+	if root == nil {
+		return
+	}
+	q := queue.Queue{}
+	q.LPush(root)
+	for q.Size != 0 {
+		node := q.RPop().(*BSTBinary)
+		fmt.Printf("%v\t", node.Data)
+		if node.Left != nil {
+			q.LPush(node.Left)
+		}
+		if node.Right != nil {
+			q.LPush(node.Right)
+		}
+	}
+}
+
+//FirstErgodicBST  BST 先
+func FirstErgodicBST(root *BSTBinary) {
+	if root != nil {
+		fmt.Printf("%v\t", root.Data)
+		FirstErgodicBST(root.Left)
+		FirstErgodicBST(root.Right)
+	}
+}
+
+//MiddleErgodicBST  BST 中
+func MiddleErgodicBST(root *BSTBinary) {
+	if root != nil {
+		MiddleErgodicBST(root.Left)
+		fmt.Printf("%v\t", root.Data)
+		MiddleErgodicBST(root.Right)
+	}
+}
+
+//LastErgodicBST  BST 后
+func LastErgodicBST(root *BSTBinary) {
+	if root != nil {
+		LastErgodicBST(root.Left)
+		LastErgodicBST(root.Right)
+		fmt.Printf("%v\t", root.Data)
+	}
+}
+
+//BSTMinData  BST 最小值
+func (root *BSTBinary) BSTMinData() *BSTBinary {
+	for root.Left != nil {
+		root = root.Left
+	}
+	fmt.Println("bst min :", root)
+	return root
+}
+
+//BSTMaxData  BST 最大值
+func (root *BSTBinary) BSTMaxData() *BSTBinary {
+	for root.Right != nil {
+		root = root.Right
+	}
+	fmt.Println("bst max :", root)
+	return root
+}
