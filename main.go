@@ -1,6 +1,6 @@
 package main
 
-import "algor/search"
+import "algor/seqsort"
 
 func main() {
 	debug()
@@ -13,5 +13,7 @@ func debug() {
 	//queue.TestQueue()
 	//tree.TestBinary()
 	//graph.TestGraph()
-	search.TestSearch()
+	//search.TestSearch()
+	//search.TestBlock()  ---
+	seqsort.TestSorts()
 }

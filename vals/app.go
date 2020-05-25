@@ -1,6 +1,8 @@
 package vals
 
-//AlgorType 全局数据类型
+const IntMin = ^int(^uint(0) >> 1)
+
+//AlgorType 全局数据类型   ---方便转换成 int,float(运算) 或 string(非运算)
 type AlgorType interface{}
 
 //AlgorNilVaule 全局空nil
@@ -11,9 +13,19 @@ func LessThanInt(prev, next AlgorType) bool {
 	return prev.(int) < next.(int)
 }
 
+//LessThanInt interface{}转int  小于等于
+func LessEquelsThanInt(prev, next AlgorType) bool {
+	return prev.(int) <= next.(int)
+}
+
 //GreaterThanInt interface{}转int  大于
 func GreaterThanInt(prev, next AlgorType) bool {
 	return prev.(int) > next.(int)
+}
+
+//GreaterEquelsThanInt interface{}转int  大于等于
+func GreaterEquelsThanInt(prev, next AlgorType) bool {
+	return prev.(int) >= next.(int)
 }
 
 //GreaterThanInt interface{}转int  等于

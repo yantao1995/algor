@@ -200,6 +200,22 @@ func TestBinary() {
 	newRoot := CopyBinary(root)
 	println("\nnewRootCopy,广度")
 	WideErgodic(newRoot)
+	println("--------------------------------")
+	bstroot := BSTInitTestSearch()
+	bstroot.BSTInsertNode(9, "vv")
+	bstroot.BSTInsertNode(14, "xx")
+	bstroot.BSTInsertNode(19, "xx")
+	bstroot.BSTInsertNode(20, "xx")
+	bstroot.BSTInsertNode(0, "zz")
+	WideErgodicBST(bstroot)
+	println()
+	bstroot.BSTMinData()
+	bstroot.BSTMaxData()
+	print("中：\t")
+	MiddleErgodicBST(bstroot)
+	flag := bstroot.BSTDelNode(-1)
+	fmt.Printf("\n----------结果:%v---删除后----------\n中：\t", flag)
+	MiddleErgodicBST(bstroot)
 }
 
 // 加载treenodes

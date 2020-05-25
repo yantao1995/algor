@@ -3,7 +3,6 @@ package search
 import (
 	"algor/tree"
 	"algor/vals"
-	"fmt"
 )
 
 //SeqBinarySearch 有序表二分查找 ,返回查找结果和index下标
@@ -49,33 +48,14 @@ func TestSearch() {
 	2c___|___8d   13g___|___17h
 
 	*/
-	bstroot := tree.BSTInitTestSearch()
-	tree.FirstErgodicBST(bstroot)
-	println()
-	node := BSTSearch(bstroot, 10)
-	if node != nil {
-		fmt.Println(node.Data.Value)
-	} else {
-		fmt.Println(node)
-	}
-	bstroot.BSTInsertNode(9, "vv")
-	bstroot.BSTInsertNode(14, "xx")
-	bstroot.BSTInsertNode(19, "xx")
-	bstroot.BSTInsertNode(20, "xx")
-	bstroot.BSTInsertNode(0, "zz")
-	tree.WideErgodicBST(bstroot)
-	println()
-	node2 := BSTSearch(bstroot, 0)
-	if node2 != nil {
-		fmt.Println(node2.Data.Value)
-	} else {
-		fmt.Println(node2)
-	}
-	bstroot.BSTMinData()
-	bstroot.BSTMaxData()
-	print("中：\t")
-	tree.MiddleErgodicBST(bstroot)
-	flag := bstroot.BSTDelNode(-1)
-	fmt.Printf("\n----------结果:%v---删除后----------\n中：\t", flag)
-	tree.MiddleErgodicBST(bstroot)
+	// bstroot := tree.BSTInitTestSearch()
+	// tree.FirstErgodicBST(bstroot)
+	// println()
+	// node := BSTSearch(bstroot, 10)
+	// if node != nil {
+	// 	fmt.Println(node.Data.Value)
+	// } else {
+	// 	fmt.Println(node)
+	// }
+
 }
