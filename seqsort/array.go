@@ -1,8 +1,10 @@
 package seqsort
 
 import (
+	"algor/utils"
 	"algor/vals"
 	"fmt"
+	"strconv"
 	"time"
 )
 
@@ -183,7 +185,7 @@ func MergeSort(nums, temp []vals.AlgorType, low, high int) {
 func merge(nums, temp []vals.AlgorType, low, high int) {
 	tempt, lowt, midt, mid := low, low, (low+high)/2+1, (low+high)/2
 	for tempt <= high {
-		if lowt <= mid && midt <= high { //判断条件可以合并成 1个 if{}else{}
+		if lowt <= mid && midt <= high { //判断条件如果合并 nums[midt] 会直接索引越界
 			if vals.LessThanInt(nums[lowt], nums[midt]) {
 				temp[tempt] = nums[lowt]
 				lowt++
@@ -195,32 +197,6 @@ func merge(nums, temp []vals.AlgorType, low, high int) {
 			temp[tempt] = nums[midt]
 			midt++
 		} else {
-			temp[tempt] = nums[lowt]
-			lowt++
-		}
-		tempt++
-	}
-	for ; low <= high; low++ {
-		nums[low] = temp[low]
-	}
-}
-
-// 合并ifelse  ---
-func merge2(nums, temp []vals.AlgorType, low, high int) {
-	tempt, lowt, midt, mid := low, low, (low+high)/2+1, (low+high)/2
-	for tempt <= high {
-		if lowt <= mid && midt <= high { //判断条件可以合并成 1个 if{}else{}
-			if vals.LessThanInt(nums[lowt], nums[midt]) {
-				temp[tempt] = nums[lowt]
-				lowt++
-			} else {
-				temp[tempt] = nums[midt]
-				midt++
-			}
-		} else if lowt > mid {
-			temp[tempt] = nums[midt]
-			midt++
-		} else if midt > high {
 			temp[tempt] = nums[lowt]
 			lowt++
 		}
@@ -254,162 +230,304 @@ func mergeNoTemp(nums []vals.AlgorType, low, high int) {
 }
 
 //大顶堆：arr[i] >= arr[2i+1] && arr[i] >= arr[2i+2]
-//HeapSort 堆排序  升序[大顶堆]    降序[小顶堆]
+//HeapSort 堆排序  升序[大顶堆]    降序[小顶堆]    优化前
 func HeapSort(nums []vals.AlgorType) {
-	heapBigTopInit(nums)
-	// for j := len(nums) - 1; j > 0; j-- {
-	// 	for i := 0; (2*i + 2) <= j; i++ { //构造堆
-	// 		if vals.LessThanInt(nums[i], nums[2*i+1]) {
-	// 			exchangeIJ(nums, i, 2*i+1)
-	// 		}
-	// 		if vals.LessThanInt(nums[i], nums[2*i+2]) {
-	// 			exchangeIJ(nums, i, 2*i+2)
-	// 		}
-	// 	}
-	// 	exchangeIJ(nums, 0, j)
-	// }
+	for i := len(nums) - 1; i > 0; i-- {
+		heapBigTopInit(nums, i)
+		exchangeIJ(nums, 0, i)
+	}
 }
 
-//HeapSort 大顶堆初始化
-func heapBigTopInit(nums []vals.AlgorType) {
-	for i := 1; i < len(nums)-1; i++ {
+//HeapSort 大顶堆结点初始化     优化前
+func heapBigTopInit(nums []vals.AlgorType, length int) {
+	for i := 1; i <= length; i++ {
 		for j := i; j > 0; j = (j - 1) / 2 {
-			if vals.LessThanInt(nums[j], nums[(j-1)/2]) {
+			if vals.GreaterThanInt(nums[j], nums[(j-1)/2]) {
 				exchangeIJ(nums, j, (j-1)/2)
+				continue
+			}
+			if vals.GreaterThanInt(nums[j], nums[(j-2)/2]) {
+				exchangeIJ(nums, j, (j-2)/2)
+				continue
+			}
+			break
+		}
+	}
+}
+
+//HeapSort 堆排序 优化后
+func HeapSortOptim(nums []vals.AlgorType) {
+	for i := len(nums) - 1; i > 0; i-- {
+		heapBigTopInitOptim(nums, i)
+		exchangeIJ(nums, 0, i)
+	}
+}
+
+//HeapSort 大顶堆调整 优化后
+func heapBigTopInitOptim(nums []vals.AlgorType, length int) {
+	for j := (length - 1) / 2; j >= 0; j-- {
+		if j*2+1 <= length && vals.LessThanInt(nums[j], nums[j*2+1]) {
+			exchangeIJ(nums, j, 2*j+1)
+		}
+		if j*2+2 <= length && vals.LessThanInt(nums[j], nums[j*2+2]) {
+			exchangeIJ(nums, j, 2*j+2)
+		}
+	}
+}
+
+//BucketSort  桶排序  用map作为桶 每个桶范围为1  ====等价于==== 计数排序
+func BucketSort(nums []vals.AlgorType) {
+	min, max := vals.IntMax, vals.IntMin
+	for i := 0; i < len(nums); i++ {
+		if min > vals.GetInt(nums[i]) {
+			min = vals.GetInt(nums[i])
+		}
+		if max < vals.GetInt(nums[i]) {
+			max = vals.GetInt(nums[i])
+		}
+	}
+	bkm := make(map[int][]vals.AlgorType, len(nums))
+	for i := 0; i < len(nums); i++ {
+		bkm[vals.GetInt(nums[i])] = append(bkm[vals.GetInt(nums[i])], nums[i])
+	}
+	k := 0
+	for i := min; i <= max; i++ {
+		if bkm[i] != nil {
+			for j := 0; j < len(bkm[i]); j++ {
+				nums[k] = bkm[i][j]
+				k++
 			}
 		}
 	}
 }
 
-//HeapSort 大顶堆调整
-func heapBigTopAdjust(nums []vals.AlgorType, index int) {
+//CountingSort 计数排序  数组
+func CountingSort(nums []vals.AlgorType) {
+	min, max := vals.IntMax, vals.IntMin
 	for i := 0; i < len(nums); i++ {
-		changed := false
-		if (2*i+1) < (len(nums)-1) && vals.LessThanInt(nums[i], nums[2*i+1]) {
-			exchangeIJ(nums, i, 2*i+1)
-			changed = true
+		if min > vals.GetInt(nums[i]) {
+			min = vals.GetInt(nums[i])
 		}
-		if (2*i+2) < (len(nums)-1) && vals.LessThanInt(nums[i], nums[2*i+2]) {
-			exchangeIJ(nums, i, 2*i+2)
-			changed = true
+		if max < vals.GetInt(nums[i]) {
+			max = vals.GetInt(nums[i])
 		}
-		if changed {
-			for j := i; (j-1)/2 > 0; j = (j - 1) / 2 {
-				if vals.LessThanInt(nums[(j-1)/2], nums[j]) {
-					exchangeIJ(nums, j, (j-1)/2)
-				}
+	}
+	temp := make([]int, max+min+1) //计数数组的长度: 从0开始 ,长度取值例  [3,300] => 304
+	for i := 0; i < len(nums); i++ {
+		temp[vals.GetInt(nums[i])]++
+	}
+	j := 0
+	for i := 0; i < len(temp); i++ { //写入原数组
+		for temp[i] > 0 {
+			nums[j] = i
+			j++
+			temp[i]--
+		}
+	}
+}
+
+//RadixSort 基数排序 LSD 低位优先 个位 十位 百位 .... 分别放到桶中进行排序
+func RadixSort(nums []vals.AlgorType) {
+	max := vals.IntMin
+	for i := 0; i < len(nums); i++ {
+		if max < vals.GetInt(nums[i]) {
+			max = vals.GetInt(nums[i])
+		}
+	}
+
+	digit := len(strconv.Itoa(max)) //获得最大数的位数
+	digitt := 10
+	for i := 1; i < digit; i++ { //  2位 取余 1000  从10开始
+		digitt *= 10
+	}
+	digit = digitt
+	for i := 1; i <= digit; i *= 10 { //位数比较
+		RadixSortHandle(nums, i)
+	}
+}
+
+func RadixSortHandle(nums []vals.AlgorType, index int) {
+	bkm := make(map[int][]vals.AlgorType, 10) // 0 - 10  桶
+	for i := 0; i < len(nums); i++ {
+		temp := vals.GetInt(nums[i])
+		if temp >= 10 {
+			for temp >= 10 { // 根据index 取各个位上的值
+				temp %= (index * 10)
+				temp /= index
+			}
+		} else {
+			temp /= index
+		}
+		bkm[temp] = append(bkm[temp], nums[i])
+	}
+	k := 0
+	for i := 0; i < 10; i++ {
+		if bkm[i] != nil {
+			for j := 0; j < len(bkm[i]); j++ {
+				nums[k] = bkm[i][j]
+				k++
 			}
 		}
 	}
 }
 
 func TestSorts() {
-	nums2 := []vals.AlgorType{60, 10, 10, 42, 38, 80, 5, 58, 74, 49, 1, 86, 44, 38, 12, 13, 8, 9, 20, 24, 48, 22, 60, 53}
+
+	//nums2 := []vals.AlgorType{60, 10, 10, 42, 38, 80, 5, 58, 74, 49, 1, 86, 44, 38, 12, 13, 8, 9, 20, 24, 48, 22, 60, 53}
+
 	//nums = nums2
 	// QuickSort(nums, 0, len(nums)-1)
 	// fmt.Println("快排：", nums)
 
-	//start0 := time.Now().UnixNano() / 1e6
-	////nums2 := utils.NonceSliceCreate(50000, 500000) //相邻不重复  耗时高
-	//nums2 := utils.NonceSliceCreateRepate(30, 300) //相邻可重复
-	// end0 := time.Now().UnixNano() / 1e6
-	// fmt.Println("    创建切片耗时：", end0-start0, "毫秒")
+	start0 := time.Now().UnixNano() / 1e6
+	//nums2 := utils.NonceSliceCreate(50000, 500000) //相邻不重复  耗时高
+	nums2 := utils.NonceSliceCreateRepate(30000, 30000) //相邻可重复
+	end0 := time.Now().UnixNano() / 1e6
+	fmt.Println("    创建切片耗时：", end0-start0, "毫秒")
 
-	//var nums3 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
-	// var nums4 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
-	// var nums5 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
-	// var nums6 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
-	//var nums7 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
-	// var nums8 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
-	//var nums9 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
+	var nums3 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
+	var nums4 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
+	var nums5 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
+	var nums6 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
+	var nums7 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
+	var nums8 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
+	var nums9 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
 	var nums10 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
-	//var nums11 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
+	var nums11 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
 	var nums12 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
 	var nums13 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
 	var nums14 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
-	//copy(nums3, nums2)
-	// copy(nums4, nums2)
-	// copy(nums5, nums2)
-	// copy(nums6, nums2)
-	//copy(nums7, nums2)
-	// copy(nums8, nums2)
-	//copy(nums9, nums2)
+	var nums15 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
+	var nums16 []vals.AlgorType = make([]vals.AlgorType, len(nums2))
+	copy(nums3, nums2)
+	copy(nums4, nums2)
+	copy(nums5, nums2)
+	copy(nums6, nums2)
+	copy(nums7, nums2)
+	copy(nums8, nums2)
+	copy(nums9, nums2)
 	copy(nums10, nums2)
-	//copy(nums11, nums2)
+	copy(nums11, nums2)
 	copy(nums12, nums2)
 	copy(nums13, nums2)
 	copy(nums14, nums2)
+	copy(nums15, nums2)
+	copy(nums16, nums2)
 
-	// fmt.Println("---start---")
-	// //fmt.Println("    原始序列：", nums2)
+	fmt.Println("---start---")
+	//fmt.Println("    原始序列：", nums2)
 
-	// start2 := time.Now().UnixNano() / 1e6
-	// QuickSort(nums2, 0, len(nums2)-1)
-	// end2 := time.Now().UnixNano() / 1e6
-	// fmt.Println("    快速排序耗时：", end2-start2, "毫秒")
-	// //fmt.Println("    快速排序：", nums2)
+	start2 := time.Now().UnixNano() / 1e6
+	QuickSort(nums2, 0, len(nums2)-1)
+	end2 := time.Now().UnixNano() / 1e6
+	fmt.Println("    快速排序耗时：", end2-start2, "毫秒")
+	//fmt.Println("    快速排序：", nums2)
 
-	// start3 := time.Now().UnixNano() / 1e6
-	// InsertSort(nums3)
-	// end3 := time.Now().UnixNano() / 1e6
-	// fmt.Println("直接插入排序耗时：", end3-start3, "毫秒")
-	// //fmt.Println("直接插入排序：", nums3)
+	start3 := time.Now().UnixNano() / 1e6
+	InsertSort(nums3)
+	end3 := time.Now().UnixNano() / 1e6
+	fmt.Println("直接插入排序耗时：", end3-start3, "毫秒")
+	//fmt.Println("直接插入排序：", nums3)
 
-	// start7 := time.Now().UnixNano() / 1e6
-	// InsertSortOptimization(nums7)
-	// end7 := time.Now().UnixNano() / 1e6
-	// fmt.Println("直接插入优化耗时：", end7-start7, "毫秒")
-	// //fmt.Println("直接插入优化：", nums3)
+	start7 := time.Now().UnixNano() / 1e6
+	InsertSortOptimization(nums7)
+	end7 := time.Now().UnixNano() / 1e6
+	fmt.Println("直接插入优化耗时：", end7-start7, "毫秒")
+	//fmt.Println("直接插入优化：", nums3)
 
-	// start4 := time.Now().UnixNano() / 1e6
-	// InsertSortByBinarySearch(nums4)
-	// end4 := time.Now().UnixNano() / 1e6
-	// fmt.Println("折半插入排序耗时：", end4-start4, "毫秒")
-	// // fmt.Println("折半插入排序：", nums4)
+	start4 := time.Now().UnixNano() / 1e6
+	InsertSortByBinarySearch(nums4)
+	end4 := time.Now().UnixNano() / 1e6
+	fmt.Println("折半插入排序耗时：", end4-start4, "毫秒")
+	// fmt.Println("折半插入排序：", nums4)
 
-	// incrementArray := utils.GetPrimeNumberByLimit(len(nums5)) //获取素数增量序列,大——>小
-	// start5 := time.Now().UnixNano() / 1e6
-	// ShellSort(nums5, incrementArray[0])
-	// end5 := time.Now().UnixNano() / 1e6
-	// fmt.Println("希尔增量排序耗时：", end5-start5, "毫秒")
-	// //fmt.Println("希尔增量排序：", nums5)
+	incrementArray := utils.GetPrimeNumberByLimit(len(nums5)) //获取素数增量序列,大——>小
+	start5 := time.Now().UnixNano() / 1e6
+	ShellSort(nums5, incrementArray[0])
+	end5 := time.Now().UnixNano() / 1e6
+	fmt.Println("希尔增量排序耗时：", end5-start5, "毫秒")
+	//fmt.Println("希尔增量排序：", nums5)
 
-	// incrementArray2 := utils.GetPrimeNumberByLimit(len(nums6)) //获取素数增量序列,大——>小
-	// start6 := time.Now().UnixNano() / 1e6
-	// ShellSortOptimization(nums6, incrementArray2[0])
-	// end6 := time.Now().UnixNano() / 1e6
-	// fmt.Println("希尔增量优化耗时：", end6-start6, "毫秒")
-	// //fmt.Println("希尔增量优化：", nums6)
+	incrementArray2 := utils.GetPrimeNumberByLimit(len(nums6)) //获取素数增量序列,大——>小
+	start6 := time.Now().UnixNano() / 1e6
+	ShellSortOptimization(nums6, incrementArray2[0])
+	end6 := time.Now().UnixNano() / 1e6
+	fmt.Println("希尔增量优化耗时：", end6-start6, "毫秒")
+	//fmt.Println("希尔增量优化：", nums6)
 
-	// start8 := time.Now().UnixNano() / 1e6
-	// SelectSort(nums8)
-	// end8 := time.Now().UnixNano() / 1e6
-	// fmt.Println("    选择排序耗时：", end8-start8, "毫秒")
-	// //fmt.Println("    选择排序：", nums8)
+	start8 := time.Now().UnixNano() / 1e6
+	SelectSort(nums8)
+	end8 := time.Now().UnixNano() / 1e6
+	fmt.Println("    选择排序耗时：", end8-start8, "毫秒")
+	//fmt.Println("    选择排序：", nums8)
 
-	// start9 := time.Now().UnixNano() / 1e6
-	// BubbleSort(nums9)
-	// end9 := time.Now().UnixNano() / 1e6
-	// fmt.Println("    冒泡排序耗时：", end9-start9, "毫秒")
-	// fmt.Println("    冒泡排序：", nums9)
+	start9 := time.Now().UnixNano() / 1e6
+	BubbleSort(nums9)
+	end9 := time.Now().UnixNano() / 1e6
+	fmt.Println("    冒泡排序耗时：", end9-start9, "毫秒")
+	//fmt.Println("    冒泡排序：", nums9)
 
 	start10 := time.Now().UnixNano() / 1e6
 	temp := make([]vals.AlgorType, len(nums10))
 	MergeSort(nums10, temp, 0, len(nums10)-1)
 	end10 := time.Now().UnixNano() / 1e6
-	fmt.Println("归并排序耗时：", end10-start10, "毫秒")
-	fmt.Println("    归并排序：", nums10)
+	fmt.Println("  归并排序耗时：", end10-start10, "毫秒")
+	//fmt.Println("      归并排序：", nums10)
 
-	// start11 := time.Now().UnixNano() / 1e6
-	// MergeSortNoTemp(nums11, 0, len(nums11)-1)
-	// end11 := time.Now().UnixNano() / 1e6
-	// fmt.Println("归并无temp耗时：", end11-start11, "毫秒")
-	// //fmt.Println("归并无temp排序：", nums11)
+	start11 := time.Now().UnixNano() / 1e6
+	MergeSortNoTemp(nums11, 0, len(nums11)-1)
+	end11 := time.Now().UnixNano() / 1e6
+	fmt.Println("归并无temp耗时：", end11-start11, "毫秒")
+	//fmt.Println("归并无temp排序：", nums11)
 
 	start12 := time.Now().UnixNano() / 1e6
 	HeapSort(nums12)
 	end12 := time.Now().UnixNano() / 1e6
 	fmt.Println("大顶堆排序耗时：", end12-start12, "毫秒")
-	fmt.Println("    大顶堆排序：", nums12)
+	//fmt.Println("    大顶堆排序：", nums12)
+
+	start13 := time.Now().UnixNano() / 1e6
+	HeapSortOptim(nums13)
+	end13 := time.Now().UnixNano() / 1e6
+	fmt.Println("大顶堆优化耗时：", end13-start13, "毫秒")
+	//fmt.Println("大顶堆优化排序：", nums13)
+
+	start14 := time.Now().UnixNano() / 1e6
+	BucketSort(nums14)
+	end14 := time.Now().UnixNano() / 1e6
+	fmt.Println("    桶排序耗时：", end14-start14, "毫秒")
+	//fmt.Println("        桶排序：", nums14)
+
+	start15 := time.Now().UnixNano() / 1e6
+	CountingSort(nums15)
+	end15 := time.Now().UnixNano() / 1e6
+	fmt.Println("    计数排序耗时：", end15-start15, "毫秒")
+	//fmt.Println("      计数排序：", nums15)
+
+	start16 := time.Now().UnixNano() / 1e6
+	RadixSort(nums16)
+	end16 := time.Now().UnixNano() / 1e6
+	fmt.Println("    基数排序耗时：", end16-start16, "毫秒")
+	//fmt.Println("      基数排序：", nums16)
 
 }
+
+/*  nums2 := utils.NonceSliceCreateRepate(30000, 30000) //相邻可重复
+    创建切片耗时： 1 毫秒
+---start---
+    快速排序耗时： 3 毫秒
+直接插入排序耗时： 904 毫秒
+直接插入优化耗时： 494 毫秒
+折半插入排序耗时： 262 毫秒
+希尔增量排序耗时： 1408 毫秒
+希尔增量优化耗时： 5 毫秒
+    选择排序耗时： 1945 毫秒
+    冒泡排序耗时： 1793 毫秒
+  归并排序耗时： 4 毫秒
+归并无temp耗时： 552 毫秒
+大顶堆排序耗时： 2523 毫秒
+大顶堆优化耗时： 1523 毫秒
+    桶排序耗时： 6 毫秒
+    计数排序耗时： 1 毫秒
+    基数排序耗时： 19 毫秒
+*/

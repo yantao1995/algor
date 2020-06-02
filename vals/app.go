@@ -1,6 +1,7 @@
 package vals
 
 const IntMin = ^int(^uint(0) >> 1)
+const IntMax = int(^uint(0) >> 1)
 
 //AlgorType 全局数据类型   ---方便转换成 int,float(运算) 或 string(非运算)
 type AlgorType interface{}

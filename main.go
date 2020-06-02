@@ -1,6 +1,8 @@
 package main
 
-import "algor/seqsort"
+import (
+	"algor/seqsort"
+)
 
 func main() {
 	debug()
