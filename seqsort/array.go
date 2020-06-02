@@ -27,6 +27,8 @@ import (
 		其次，要排序的数据应该很容易分成m个桶，每个桶也应该有大小顺序。
 计数排序： 其中k是整数的范围，快于任何比较排序算法。这是一种牺牲空间换取时间的做法，
 		而且当O(k)>O(n*log(n))的时候其效率反而不如基于比较的排序
+基数排序： LSD：先个位依次放到 0-9 的桶里，遍历桶返回到原数组。然后十位依次放入 0-9 桶，（没有十位的按0处理），取出。 。。。。。
+		直到最大的数的最高位也放了之后。整个数组有序。
 */
 
 /*
@@ -346,6 +348,7 @@ func RadixSort(nums []vals.AlgorType) {
 	}
 }
 
+//RadixSortHandle 基数排序处理
 func RadixSortHandle(nums []vals.AlgorType, index int) {
 	bkm := make(map[int][]vals.AlgorType, 10) // 0 - 10  桶
 	for i := 0; i < len(nums); i++ {
