@@ -1,13 +1,13 @@
 {
     "go.goroot": "D:\\go",
-    "go.gopath": "D:\\goproject",
+    "go.gopath": "E:\\gopath",
     "go.gotoSymbol.includeGoroot": true,
     "go.gotoSymbol.includeImports": true, 
     "go.useLanguageServer": true,
     "go.autocompleteUnimportedPackages": true,
     "go.coverOnTestPackage": false,
-    "debug.console.fontSize": 16,
-    "editor.fontSize": 15,
+    "debug.console.fontSize": 15,
+    "editor.fontSize": 14,
     "go.lintFlags": [
         "--disable=varcheck"
     ],

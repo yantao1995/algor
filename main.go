@@ -1,6 +1,8 @@
 package main
 
-import "algor/search"
+import (
+	"algor/leetcode"
+)
 
 func main() {
 	debug()
@@ -14,6 +16,12 @@ func debug() {
 	//tree.TestBinary()
 	//graph.TestGraph()
 	//search.TestSearch()
-	search.TestBlock()
+	//search.TestBlock()
 	//seqsort.TestSorts()
+	leetcode.TestAlgor()
+	test()
+}
+
+func test() {
+
 }
