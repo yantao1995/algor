@@ -4,5 +4,5 @@ import "fmt"
 
 //测试
 func TestAlgor() {
-	fmt.Println(lengthOfLongestSubstring("dvdf"))
+	fmt.Println(longestPalindrome("cbbd"))
 }
