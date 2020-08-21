@@ -61,3 +61,14 @@ func GetPrimeNumberByLimit(max int) []int {
 	}
 	return primeNumber
 }
+
+// 有序整数切片去重
+func CutRepateFromSequenceIntSlice(nums []int) []int {
+	dist := []int{nums[0]}
+	for k := 1; k < len(nums); k++ {
+		if nums[k] != dist[len(dist)-1] {
+			dist = append(dist, nums[k])
+		}
+	}
+	return dist
+}

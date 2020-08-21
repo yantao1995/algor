@@ -8,7 +8,7 @@ package leetcode
 
 // @lc code=start
 func longestPalindrome(s string) string {
-	if len(s) < 3 {
+	if len(s) < 2 {
 		return s
 	}
 	dist := [][]bool{}
@@ -23,19 +23,20 @@ func longestPalindrome(s string) string {
 
 		}
 	}
-	for lns := len(s); lns > 1; lns-- { //字串长度
-		// for i, j := 0, lns; i+lns < len(s); i, j = i+1, j-1 { //移动游标
-		// 	if dist[i+1][j-1] { //是
-		// 		if s[i] == s[j] {
-		// 			return s[i : j+1]
-		// 		}
-		// 	}
-		// 	for m := i; m < j; m++ {
-
-		// 	}
-		// }
+	maxLeft, maxRight, maxLength := 0, 0, 1
+	for i := 1; i < len(s); i++ { //长度2开始
+		for j := 0; j+i < len(s); j++ {
+			if dist[j+1][j+i-1] || i == 1 { //字串是
+				if s[j] == s[j+i] {
+					dist[j][j+i] = true
+					if i+1 > maxLength {
+						maxLeft, maxRight, maxLength = j, j+i, i
+					}
+				}
+			}
+		}
 	}
-	return string(s[0])
+	return string(s[maxLeft : maxRight+1])
 }
 
 // @lc code=end
