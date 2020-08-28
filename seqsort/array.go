@@ -76,6 +76,37 @@ func QuickSort(nums []vals.AlgorType, low, high int) {
 	QuickSort(nums, index+1, high)
 }
 
+/*	做题时使用 简化了
+func QuickSort31(nums []int, low, high int) {
+	if low >= high {
+		return
+	}
+	i := low + 1
+	j := high
+	sufftoprev := true
+	index := low
+	for i <= j {
+		if sufftoprev { //坑在前面，哨兵从后往前
+			if nums[index] > nums[j] {
+				nums[index], nums[j] = nums[j], nums[index]
+				index = j
+				sufftoprev = false
+			}
+			j--
+		} else { //坑在后面，哨兵从前往后
+			if nums[index] < nums[i] {
+				nums[index], nums[i] = nums[i], nums[index]
+				index = i
+				sufftoprev = true
+			}
+			i++
+		}
+	}
+	QuickSort31(nums, low, index-1)
+	QuickSort31(nums, index+1, high)
+}
+*/
+
 //InsertSort 直接插入排序 O(n^2)  正序 O(n)
 func InsertSort(nums []vals.AlgorType) {
 	for i := 1; i < len(nums); i++ { //依次挑选未排序序列，默认第1个有序，第2个元素开始

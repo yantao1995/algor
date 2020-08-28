@@ -4,5 +4,6 @@ import "fmt"
 
 //测试
 func TestAlgor() {
-	fmt.Println(isValid("[{()}[()]]"))
+	nums := []int{1, 3, 5, 6}
+	fmt.Println(searchInsert(nums, 5))
 }
