@@ -1,15 +1,10 @@
 package leetcode
 
-import (
-	"fmt"
-	"reflect"
-)
+import "fmt"
 
 //测试
 func TestAlgor() {
-	a := '2' - 48
-	b := '4' - 48
-	c := a * b
-	fmt.Println(c%10+48, reflect.TypeOf(c))
-	fmt.Println(multiply("12", "13"))
+	// num1 := []int{1, 1, 2, 2}
+	str := "Hello World"
+	fmt.Println(lengthOfLastWord(str))
 }
