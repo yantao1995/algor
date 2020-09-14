@@ -11,6 +11,22 @@
     "go.lintFlags": [
         "--disable=varcheck"
     ],
-    "workbench.editor.enablePreview": false
+    "workbench.editor.enablePreview": false,
     //"http.proxy": "http://127.0.0.1:7890"
+    "[go]": {
+        "editor.snippetSuggestions": "none",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true,
+        }
+    },
+    "gopls": {
+        "usePlaceholders": true, // add parameter placeholders when completing a function
+    
+        // Experimental settings
+        "completeUnimported": true, // autocomplete unimported packages
+        "watchFileChanges": true,  // watch file changes outside of the editor
+        "deepCompletion": true,     // enable deep completion
+    },
+    "files.eol": "\n"
 }

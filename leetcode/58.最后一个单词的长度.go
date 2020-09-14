@@ -11,7 +11,7 @@ func lengthOfLastWord(s string) int {
 	lastMax, max := 0, 0
 	for k := range s {
 		if s[k] == ' ' {
-			if max > lastMax {
+			if max > 0 {
 				lastMax = max
 			}
 			max = 0
@@ -19,7 +19,7 @@ func lengthOfLastWord(s string) int {
 		}
 		max++
 	}
-	if max > lastMax {
+	if max > 0 {
 		return max
 	}
 	return lastMax
