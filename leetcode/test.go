@@ -4,5 +4,6 @@ import "fmt"
 
 //测试
 func TestAlgor() {
-	fmt.Println(mySqrt(7))
+	//nums := []int{2, 7, 9, 3, 1}
+	fmt.Println()
 }

@@ -1,7 +1,5 @@
 package leetcode
 
-import "fmt"
-
 /*
  * @lc app=leetcode.cn id=69 lang=golang
  *
@@ -17,7 +15,6 @@ func mySqrt(x int) int {
 	lastMid := x
 	temp := 0
 	for {
-		fmt.Println(mid)
 		temp = mid - lastMid
 		if lastMid > mid {
 			temp = lastMid - mid
