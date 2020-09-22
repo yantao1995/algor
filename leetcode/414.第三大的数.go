@@ -10,17 +10,14 @@ import "fmt"
 
 // @lc code=start
 func thirdMax(nums []int) int {
-	max := nums[0]
-	if len(nums) < 3 {
-		for k := range nums {
-			if nums[k] > max {
-				max = nums[k]
-			}
-		}
-		return max
-	}
-	stack := []int{-9999, -9999, -9999} // 小->大
+	m := map[int]bool{}
+	int64Min := -1 << 63
+	stack := []int{int64Min, int64Min, int64Min} // 小->大
 	for k := range nums {
+		if m[nums[k]] {
+			continue
+		}
+		m[nums[k]] = true
 		if nums[k] > stack[0] {
 			stack[0] = nums[k]
 			if stack[1] < stack[0] {
@@ -32,7 +29,11 @@ func thirdMax(nums []int) int {
 			fmt.Println(stack)
 		}
 	}
-	fmt.Println(stack)
+	for k := range stack {
+		if stack[k] == int64Min {
+			return stack[2]
+		}
+	}
 	return stack[0]
 }
 

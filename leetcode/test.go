@@ -6,5 +6,6 @@ import (
 
 //测试
 func TestAlgor() {
-	fmt.Println(firstUniqChar("leetcode"))
+	str := "---"
+	fmt.Println(licenseKeyFormatting(str, 3))
 }

@@ -72,3 +72,14 @@ func CutRepateFromSequenceIntSlice(nums []int) []int {
 	}
 	return dist
 }
+
+//获取位数  正数
+func getBit(num int) int {
+	bt := 1
+	weight := 1
+	for weight*10 <= num {
+		weight *= 10
+		bt++
+	}
+	return bt
+}
