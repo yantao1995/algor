@@ -1,11 +1,8 @@
 package leetcode
 
-import (
-	"fmt"
-)
+import "fmt"
 
 //测试
 func TestAlgor() {
-	str := "---"
-	fmt.Println(licenseKeyFormatting(str, 3))
+	fmt.Println(reverseStr("abcdefg", 3))
 }
