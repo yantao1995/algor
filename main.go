@@ -2,7 +2,6 @@ package main
 
 import (
 	"algor/leetcode"
-	"fmt"
 )
 
 func main() {
@@ -24,8 +23,4 @@ func debug() {
 }
 
 func test() {
-	str := "asdf"
-	fmt.Printf("%p\n", &str)
-	str = "asdf" + "aasdasdasdasdasdasdasd"
-	fmt.Printf("%p", &str)
 }

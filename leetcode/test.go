@@ -4,5 +4,7 @@ import "fmt"
 
 //测试
 func TestAlgor() {
-	fmt.Println(reverseStr("abcdefg", 3))
+	nums := []int{1, 3, 2, 2, 5, 2, 3, 7}
+	fmt.Println(findLHS(nums))
+
 }
