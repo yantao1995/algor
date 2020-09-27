@@ -8,31 +8,20 @@ package leetcode
 
 // @lc code=start
 func maxCount(m int, n int, ops [][]int) int {
-	data := [][]int{}
-	for i := 0; i < m; i++ {
-		temp := make([]int, n)
-		data = append(data, temp)
+	if len(ops) == 0 {
+		return m * n
 	}
-	for k := range ops {
-		for i := 0; i < ops[k][0]; i++ {
-			for j := 0; j < ops[k][1]; j++ {
-				data[i][j]++
-			}
+	min1 := ops[0][0]
+	min2 := ops[0][1]
+	for i := 1; i < len(ops); i++ {
+		if min1 > ops[i][0] {
+			min1 = ops[i][0]
+		}
+		if min2 > ops[i][1] {
+			min2 = ops[i][1]
 		}
 	}
-	ht := map[int]int{}
-	for k := range data {
-		for m := range data[k] {
-			ht[data[k][m]]++
-		}
-	}
-	max := 0
-	for k := range ht {
-		if k > max {
-			max = k
-		}
-	}
-	return ht[max]
+	return min1 * min2
 }
 
 // @lc code=end
