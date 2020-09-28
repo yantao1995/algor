@@ -4,6 +4,6 @@ import "fmt"
 
 //测试
 func TestAlgor() {
-	nums := "ebcbbececabbacecbbcbe"
-	fmt.Println(validPalindrome(nums))
+	str := []int{1, 0, 0, 1, 0}
+	fmt.Println(isOneBitCharacter(str))
 }
