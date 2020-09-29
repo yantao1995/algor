@@ -8,28 +8,27 @@ package leetcode
 
 // @lc code=start
 func isOneBitCharacter(bits []int) bool {
-	for i := 0; i < len(bits); i++ {
-		if bits[i] == 1 {
-			if i > 0 {
-				bits = bits[i:]
-			}
-			break
-		}
-	}
 	if len(bits) == 1 {
 		return bits[0] == 0
 	}
-	if bits[len(bits)-2] == 0 {
-		return true
-	} else {
-		if len(bits) >= 3 {
-			if bits[len(bits)-3] == 0 {
-				return false
+	bits = bits[:len(bits)-1]
+	wait := false //前一个是1,在等下一个字符
+	for i := 0; i < len(bits); i++ {
+		if bits[i] == 1 {
+			if !wait {
+				wait = true
+				continue
+			}
+		} else {
+			if !wait {
+				continue
 			}
 		}
-
-		return true
+		if wait {
+			wait = false
+		}
 	}
+	return !wait
 }
 
 // @lc code=end
