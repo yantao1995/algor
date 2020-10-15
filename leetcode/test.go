@@ -1,12 +1,10 @@
 package leetcode
 
-import "fmt"
+import (
+	"fmt"
+)
 
 //测试
 func TestAlgor() {
-	str := [][]int{
-		{0, 0, 0},
-		{0, 1, 0},
-	}
-	fmt.Println(floodFill(str, 1, 0, 2))
+	fmt.Println(robotSim([]int{-2, -1, 8, 9, 6}, [][]int{{0, 1}}))
 }
