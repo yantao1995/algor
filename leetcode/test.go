@@ -6,5 +6,8 @@ import (
 
 //测试
 func TestAlgor() {
-	fmt.Println(robotSim([]int{-2, -1, 8, 9, 6}, [][]int{{0, 1}}))
+	words := []string{"word", "world", "row"}
+	order := "worldabcefghijkmnpqstuvxyz"
+
+	fmt.Println(isAlienSorted(words, order))
 }
