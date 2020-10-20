@@ -6,8 +6,10 @@ import (
 
 //测试
 func TestAlgor() {
-	words := []string{"word", "world", "row"}
-	order := "worldabcefghijkmnpqstuvxyz"
-
-	fmt.Println(isAlienSorted(words, order))
+	nums := [][]int{
+		{1, 2, 3},
+		{4, 5, 6},
+		{7, 8, 9},
+	}
+	fmt.Println(shiftGrid(nums, 1))
 }

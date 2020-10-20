@@ -9,32 +9,36 @@ package leetcode
 // @lc code=start
 func isAlienSorted(words []string, order string) bool {
 	ht := map[byte]int{}
+	greaterThanPrev := make([]bool, len(words)) //是否比前一个大
+	maxLength := 0
+	for k := range words {
+		if maxLength < len(words[k]) {
+			maxLength = len(words[k])
+		}
+	}
 	for k := range order {
 		ht[order[k]] = k
 	}
-	for i := 0; ; i++ {
-		for k := 0; k < len(words); k++ {
-			if k > 0 {
-				if i >= len(words[k-1]) {
-					words = append(words[:k-1], words[k:]...)
-					k--
-					continue
-				}
-				if ht[words[k-1][i]] > ht[words[k][i]] {
-					return false
-				} else {
-					if ht[words[k-1][i]] == ht[words[k][i]] && len(words[k-1]) > len(words[k]) {
+	for i := 0; i < maxLength; i++ {
+		for k := 1; k < len(words); k++ {
+			if !greaterThanPrev[k] {
+				if i >= len(words[k-1]) || i >= len(words[k]) {
+					if len(words[k-1]) > len(words[k]) {
 						return false
 					}
-					words = append(words[:k-1], words[k:]...)
-					k--
+				} else {
+					if ht[words[k-1][i]] > ht[words[k][i]] {
+						return false
+					} else {
+						if ht[words[k-1][i]] < ht[words[k][i]] {
+							greaterThanPrev[k] = true
+						}
+					}
 				}
 			}
 		}
-		if len(words) < 2 {
-			return true
-		}
 	}
+	return true
 }
 
 // @lc code=end
