@@ -10,7 +10,7 @@ package leetcode
 func luckyNumbers(matrix [][]int) []int {
 	result := []int{}
 	for i := 0; i < len(matrix); i++ {
-		temp := matrix[0][0]
+		temp := matrix[i][0]
 		tempJ := 0
 		for j := 0; j < len(matrix[i]); j++ {
 			if temp > matrix[i][j] {
@@ -18,12 +18,12 @@ func luckyNumbers(matrix [][]int) []int {
 				tempJ = j
 			}
 		}
-		tempMax := matrix[0][0]
+		tempMax := matrix[0][tempJ]
 		tempI := 0
-		for k := range matrix {
-			if tempMax < matrix[k][tempJ] {
-				tempMax = matrix[k][tempJ]
-				tempI = k
+		for ii := 0; ii < len(matrix); ii++ {
+			if tempMax < matrix[ii][tempJ] {
+				tempMax = matrix[ii][tempJ]
+				tempI = ii
 			}
 		}
 		if tempI == i {
