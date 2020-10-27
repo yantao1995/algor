@@ -6,6 +6,5 @@ import (
 
 //测试
 func TestAlgor() {
-	num := "  hello"
-	fmt.Println(reorderSpaces(num))
+	fmt.Println()
 }

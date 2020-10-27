@@ -23,5 +23,4 @@ func debug() {
 }
 
 func test() {
-
 }
