@@ -1,30 +1,48 @@
 package leetcode
 
+import (
+	"strconv"
+	"strings"
+)
+
 /*
- * @lc app=leetcode.cn id=258 lang=golang
+ * @lc app=leetcode.cn id=445 lang=golang
  *
- * [258] 各位相加
+ * [445] 两数相加 II
  */
 
 // @lc code=start
-func addDigits(num int) int {
-	weight, temp := 1, 0
-	for num >= 10 {
-		temp, weight = 0, 1
-		for weight <= num {
-			weight *= 10
-		}
-		weight /= 10
-		for weight >= 1 {
-			temp += (num / weight)
-			num %= weight
-			weight /= 10
-		}
-		num = temp
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */ //
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	num1, num2 := "", ""
+	for h1 := l1; h1 != nil; h1 = h1.Next {
+		num1 += strconv.Itoa(h1.Val)
 	}
-	return num
+	for h2 := l2; h2 != nil; h2 = h2.Next {
+		num2 += strconv.Itoa(h2.Val)
+	}
+	result := strAdd445([]byte(num1), []byte(num2))
+	num := strings.Split(string(result), "")
+	head := &ListNode{}
+	h := head
+	for i := 0; i < len(num); i++ {
+		iT, _ := strconv.Atoi(num[i])
+		newNode := &ListNode{
+			Val:  iT,
+			Next: nil,
+		}
+		head.Next = newNode
+		head = head.Next
+	}
+	return h.Next
 }
-func strAdd258(a, b []byte) []byte {
+func strAdd445(a, b []byte) []byte {
 	if len(a) == 0 {
 		return b
 	}
