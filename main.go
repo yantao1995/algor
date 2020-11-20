@@ -1,8 +1,6 @@
 package main
 
-import (
-	"algor/leetcode"
-)
+import "algor/leetcode"
 
 func main() {
 	debug()

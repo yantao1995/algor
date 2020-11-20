@@ -1,17 +1,27 @@
 package leetcode
 
-import "fmt"
+import (
+	"fmt"
+)
 
 //测试
 func TestAlgor() {
 
-	num := []int{3, 2, 3, 1, 2, 4, 5, 5, 6, 7, 7, 8, 2, 3, 1, 1, 1, 10, 11, 5, 6, 2, 4, 7, 8, 5, 6}
-	fmt.Println(topKFrequent(num, 10))
-
+	fmt.Println()
+	fmt.Println("______________")
+	lfu := Constructor(2)
+	lfu.Put(1, 1)
+	lfu.Put(2, 2)
+	fmt.Println(lfu.Get(1))
 }
 
 /////////////////////////////////////////////////////
 type ListNode struct {
 	Val  int
 	Next *ListNode
+}
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
 }
