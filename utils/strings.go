@@ -34,8 +34,8 @@ func NonceStrCreate(len int) string {
 	var c, cc rune
 	var buffer bytes.Buffer
 	var length int = 0
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	for {
-		r := rand.New(rand.NewSource(time.Now().UnixNano()))
 		if r.Intn(10) >= 5 {
 			bhint = r.Intn(4) + r.Intn(23)
 			c = rune(97 + bhint)
@@ -58,4 +58,18 @@ func NonceStrCreate(len int) string {
 		}
 	}
 	return buffer.String()
+}
+
+//str1 的各个字符是否在 str2 里
+func IsStr1InStr2(str1, str2 string) bool {
+	m := map[rune]bool{}
+	for _, v := range str2 {
+		m[v] = true
+	}
+	for _, v := range str1 {
+		if !m[v] {
+			return false
+		}
+	}
+	return true
 }

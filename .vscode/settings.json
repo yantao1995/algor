@@ -13,4 +13,5 @@
     ],
     "workbench.editor.enablePreview": false,
     //"http.proxy": "http://127.0.0.1:7890"
+    // gopls慢就关闭杀毒软件
 }
