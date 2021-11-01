@@ -20,8 +20,5 @@ func debug() {
 }
 
 func test() {
-	//fmt.Println(utils.IsStr1InStr2(" a", " a"))
 
 }
-
-// rpush monitor_takeout_pass_queue1 {\"Id\":1,\"CurrencyId\":2,\"CurrencyName\":\"eth\",\"Amount\":\"15\",\"Status\":0,\"Mtime\":1612254354,\"Type\":2}
