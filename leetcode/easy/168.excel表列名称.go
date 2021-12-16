@@ -55,7 +55,7 @@ func convertToTitle(n int) string {
 			}
 		}
 		if mod[i] > 0 {
-			str += string(mod[i] + 64)
+			str += string(rune(mod[i] + 64))
 		}
 	}
 	return str
