@@ -1,6 +1,16 @@
 package leetcode
 
-// //测试
+import (
+	"fmt"
+	"testing"
+)
+
+func TestFunc(t *testing.T) {
+
+	fmt.Println()
+}
+
+//
 // func TestAlgor() {
 
 // 	fmt.Println()
@@ -41,12 +51,3 @@ package leetcode
 // }
 
 /////////////////////////////////////////////////////
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}

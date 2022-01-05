@@ -6,6 +6,9 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-
-	fmt.Println()
+	ms := Constructor()
+	ms.Insert("apple", 3)
+	fmt.Println(ms.Sum("ap"))
+	ms.Insert("app", 2)
+	fmt.Println(ms.Sum("ap"))
 }
