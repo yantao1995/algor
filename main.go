@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"reflect"
 	"time"
 )
 
@@ -12,12 +11,7 @@ func main() {
 }
 
 func test() {
-	a := []int(nil)
-	b := []int{}
-	fmt.Println(reflect.DeepEqual(a, b))
-	fmt.Println(reflect.TypeOf(b))
-
-	//fmt.Println(getRandQuestion())
+	fmt.Println(getRandQuestion())
 }
 
 func getRandQuestion() int {
