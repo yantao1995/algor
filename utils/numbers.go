@@ -2,7 +2,9 @@ package utils
 
 import (
 	"algor/vals"
+	"fmt"
 	"math/rand"
+	"strconv"
 	"time"
 )
 
@@ -82,4 +84,13 @@ func getBit(num int) int {
 		bt++
 	}
 	return bt
+}
+
+//判断浮点数是否超过精度  true 超过， false 未超过
+func IsNRoundNumberOver(val float64, round int) bool {
+	if round < 0 {
+		return false
+	}
+	newValue, _ := strconv.ParseFloat(fmt.Sprintf("%."+strconv.Itoa(round)+"f", val), 64)
+	return newValue != val
 }

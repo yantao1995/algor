@@ -2,7 +2,9 @@ package utils
 
 import (
 	"bytes"
+	"errors"
 	"math/rand"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -111,4 +113,13 @@ func NonceStrCreate2(len int, includeNumber bool) string {
 		}
 	}
 	return buffer.String()
+}
+
+// string转float64
+func StringToFloat64(s string) (float64, error) {
+	f, err := strconv.ParseFloat(s, 64)
+	if f != f {
+		return 0, errors.New("string is NaN")
+	}
+	return f, err
 }
