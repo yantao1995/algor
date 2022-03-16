@@ -6,7 +6,6 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-
 	fmt.Println()
 }
 
@@ -20,7 +19,7 @@ func TestFunc(t *testing.T) {
 // 	lfu.Put(1, 1)
 // 	lfu.Put(2, 2)
 // 	fmt.Println(lfu.Get(1))
-// 	lfu.iteator()
+// 	lfu.iterator()
 // 	fmt.Println("lfu.KeyCountMap", lfu.KeyCountMap)
 // 	fmt.Println("lfu.KeyValueMap", lfu.KeyValueMap)
 // 	fmt.Println("lfu.CountLinkMap", lfu.CountLinkMap)
@@ -38,7 +37,7 @@ func TestFunc(t *testing.T) {
 // 	fmt.Println(lfu.Get(4))
 // }
 
-// func (this *LFUCache) iteator() {
+// func (this *LFUCache) iterator() {
 // 	fmt.Print("CountSortList   ")
 // 	for h := this.CountSortList.Front(); h != nil; h = h.Next() {
 // 		fmt.Print("\t", h.Value, "\t")
