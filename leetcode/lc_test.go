@@ -1,11 +1,12 @@
 package leetcode
 
 import (
+	"fmt"
 	"testing"
 )
 
 func TestFunc(t *testing.T) {
-
+	fmt.Println(subarraySum([]int{1, 2, 3}, 3))
 }
 
 //
@@ -19,13 +20,13 @@ func TestFunc(t *testing.T) {
 // 	lfu.Put(2, 2)
 // 	fmt.Println(lfu.Get(1))
 // 	lfu.iterator()
-// 	fmt.Println("lfu.KeyCountMap", lfu.KeyCountMap)
 // 	fmt.Println("lfu.KeyValueMap", lfu.KeyValueMap)
 // 	fmt.Println("lfu.CountLinkMap", lfu.CountLinkMap)
 // 	fmt.Println("______________")
 // 	lfu.Put(3, 3)
 // 	fmt.Println("lfu.KeyCountMap", lfu.KeyCountMap)
 // 	fmt.Println("lfu.KeyValueMap", lfu.KeyValueMap)
+// 	fmt.Println("lfu.KeyCountMap", lfu.KeyCountMap)
 // 	fmt.Println("lfu.CountLinkMap", lfu.CountLinkMap)
 // 	fmt.Println("______________")
 // 	fmt.Println(lfu.Get(2))
