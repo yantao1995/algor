@@ -1,7 +1,7 @@
 package stack
 
 import (
-	"algor/vals"
+	"algor/achieve/vals"
 	"fmt"
 )
 

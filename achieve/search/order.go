@@ -1,8 +1,8 @@
 package search
 
 import (
-	"algor/tree"
-	"algor/vals"
+	"algor/achieve/tree"
+	"algor/achieve/vals"
 )
 
 //SeqBinarySearch 有序表二分查找 ,返回查找结果和index下标

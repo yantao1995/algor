@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	test()
+	test2()
 }
 
 func test() {
@@ -16,4 +16,8 @@ func test() {
 
 func getRandQuestion() int {
 	return rand.New(rand.NewSource(time.Now().UnixNano())).Intn(2088)
+}
+
+func test2() {
+
 }

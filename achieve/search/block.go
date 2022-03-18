@@ -1,7 +1,7 @@
 package search
 
 import (
-	"algor/vals"
+	"algor/achieve/vals"
 	"fmt"
 )
 

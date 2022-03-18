@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"algor/vals"
+	"algor/achieve/vals"
 	"fmt"
 	"math/rand"
 	"strconv"

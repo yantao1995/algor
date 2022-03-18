@@ -1,8 +1,8 @@
 package seqsort
 
 import (
+	"algor/achieve/vals"
 	"algor/utils"
-	"algor/vals"
 	"fmt"
 	"strconv"
 	"time"

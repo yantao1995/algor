@@ -1,7 +1,7 @@
 package linklist
 
 import (
-	"algor/vals"
+	"algor/achieve/vals"
 	"fmt"
 )
 

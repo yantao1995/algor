@@ -1,9 +1,9 @@
 package tree
 
 import (
-	"algor/queue"
-	"algor/stack"
-	"algor/vals"
+	"algor/achieve/queue"
+	"algor/achieve/stack"
+	"algor/achieve/vals"
 	"fmt"
 )
 
