@@ -9,7 +9,7 @@ package leetcode
 // @lc code=start
 func reconstructQueue(people [][]int) [][]int {
 	result := [][]int{}
-	chooseMap := map[int]bool{}
+	//chooseMap := map[int]bool{}
 	currentCanIndex := make([]int, len(people))
 	for k := range people {
 		currentCanIndex[k] = k
@@ -18,10 +18,10 @@ func reconstructQueue(people [][]int) [][]int {
 		if len(result) == len(people) {
 			return
 		}
-		nextCanChooseIndex := []int{}
-		for k : =range canChooseIndex{
-			result = append
-		}
+		//nextCanChooseIndex := []int{}
+		// for k : =range canChooseIndex{
+		// //	result = append
+		// }
 	}
 	greedy(0, currentCanIndex)
 	return result

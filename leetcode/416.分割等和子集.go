@@ -1,7 +1,5 @@
 package leetcode
 
-import "sort"
-
 /*
  * @lc app=leetcode.cn id=416 lang=golang
  *
@@ -10,22 +8,30 @@ import "sort"
 
 // @lc code=start
 func canPartition(nums []int) bool {
-	sort.Ints(nums)
-	prev, tail := 0, nums[len(nums)-1]
-	for i := 0; i < len(nums)-1; i++ {
-		prev += nums[i]
+	total := 0
+	for k := range nums {
+		total += nums[k]
 	}
-	if prev == tail {
-		return true
+	if total%2 == 1 || len(nums) < 2 {
+		return false
 	}
-	for j := len(nums) - 2; j > 0 && prev > tail; j-- {
-		prev -= nums[j]
-		tail += nums[j]
-		if prev == tail {
-			return true
+	half := total / 2
+	flag := false
+	var backtrack func(current, index int)
+	backtrack = func(current, index int) {
+		if flag {
+			return
+		}
+		if current == half {
+			flag = true
+			return
+		}
+		for i := index; i < len(nums) && !flag; i++ {
+			backtrack(current+nums[i], i+1)
 		}
 	}
-	return false
+	backtrack(0, 0)
+	return flag
 }
 
 // @lc code=end
