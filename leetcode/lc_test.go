@@ -6,7 +6,8 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println(subarraySum([]int{1, 2, 3}, 3))
+
+	fmt.Println(canPartition([]int{2, 2, 1, 1}))
 }
 
 //

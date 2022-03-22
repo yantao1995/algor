@@ -8,16 +8,24 @@ package leetcode
 
 // @lc code=start
 func maxArea(height []int) int {
-	maxCap, minHeight := 0, 0                                   //容量
-	for interval := len(height) - 1; interval > 0; interval-- { //间隔
-		for i := 0; i+interval < len(height); i++ {
-			minHeight = height[i+interval]
-			if height[i] < height[i+interval] {
-				minHeight = height[i]
+	maxCap, cap := 0, 0
+	for i := 0; i < len(height); i++ {
+		for j := len(height) - 1; j > i; j-- {
+			if height[j] >= height[i] {
+				if cap = (j - i) * height[i]; cap > maxCap {
+					maxCap = cap
+				}
+				break
 			}
-			cap := minHeight * interval
-			if cap > maxCap {
-				maxCap = cap
+		}
+	}
+	for i := len(height) - 1; i > 0; i-- {
+		for j := 0; j < i; j++ {
+			if height[j] >= height[i] {
+				if cap = (i - j) * height[i]; cap > maxCap {
+					maxCap = cap
+				}
+				break
 			}
 		}
 	}
