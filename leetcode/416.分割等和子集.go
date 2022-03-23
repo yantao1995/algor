@@ -19,14 +19,14 @@ func canPartition(nums []int) bool {
 	flag := false
 	var backtrack func(current, index int)
 	backtrack = func(current, index int) {
-		if flag {
+		if flag || current > half {
 			return
 		}
 		if current == half {
 			flag = true
 			return
 		}
-		for i := index; i < len(nums) && !flag; i++ {
+		for i := index; i < len(nums); i++ {
 			backtrack(current+nums[i], i+1)
 		}
 	}
