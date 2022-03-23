@@ -16,22 +16,18 @@ func canPartition(nums []int) bool {
 		return false
 	}
 	half := total / 2
-	flag := false
-	var backtrack func(current, index int)
-	backtrack = func(current, index int) {
-		if flag || current > half {
-			return
+	can := make([]bool, half+1)
+	for k := range nums {
+		for j := len(can) - 1; j > 0; j-- {
+			if can[j] && j+nums[k] <= half {
+				can[j+nums[k]] = true
+			}
 		}
-		if current == half {
-			flag = true
-			return
-		}
-		for i := index; i < len(nums); i++ {
-			backtrack(current+nums[i], i+1)
+		if nums[k] <= half {
+			can[nums[k]] = true
 		}
 	}
-	backtrack(0, 0)
-	return flag
+	return can[total/2]
 }
 
 // @lc code=end

@@ -9,10 +9,14 @@ package leetcode
 // @lc code=start
 func maxSubArray(nums []int) int {
 	max := -1 << 31
-	//sign := make([]int, len(nums))
+	current := 0
 	for i := 0; i < len(nums); i++ {
-		for j := i; j >= 0; j-- {
-
+		current += nums[i]
+		if max < current {
+			max = current
+		}
+		if current < 0 {
+			current = 0
 		}
 	}
 	return max
