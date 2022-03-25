@@ -17,13 +17,33 @@ func numSquares(n int) int {
 		sqrtIndex[i] = i * i
 	}
 	minCount := 1
-	// min := func(a, b int) int {
-	// 	if a < b {
-	// 		return a
-	// 	}
-	// 	return b
-	// }
-
+	min := func(a, b int) int {
+		if a < b {
+			return a
+		}
+		return b
+	}
+	memo := make([]int, n+1)
+	var bfs func(n int) int
+	bfs = func(n int) int {
+		if n < 4 {
+			memo[n] = n
+			return n
+		}
+		if memo[n] > 0 {
+			return memo[n]
+		}
+		minCount := n
+		for i := len(sqrtIndex); i > 0; i-- {
+			if n > sqrtIndex[i] {
+				minCount = min(minCount, bfs(sqrtIndex[i])+bfs(n-sqrtIndex[i]))
+			} else if n == sqrtIndex[i] {
+				minCount = 1
+			}
+		}
+		memo[n] = minCount
+		return minCount
+	}
 	return minCount
 }
 

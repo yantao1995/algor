@@ -6,7 +6,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println(numSquares(43))
+	fmt.Println(numSquares(15))
 }
 
 //
