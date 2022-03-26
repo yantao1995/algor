@@ -27,12 +27,11 @@ func numSquares(n int) int {
 		if memo[n] > 0 {
 			return memo[n]
 		}
-		m := n
-		for i := 1; i <= n/2; i++ {
-			m = min(m, bfs(n-i)+bfs(i))
+		memo[n] = n
+		for i := 1; i*i <= n; i++ {
+			memo[n] = min(memo[n], bfs(n-i*i)+1)
 		}
-		memo[n] = m
-		return m
+		return memo[n]
 	}
 	bfs(n)
 	return memo[n]
