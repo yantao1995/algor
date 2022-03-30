@@ -19,5 +19,10 @@ func getRandQuestion() int {
 }
 
 func test2() {
-
+	i := 0
+	pi := &i
+	*pi++
+	fmt.Println(*pi)
+	fmt.Println(*pi - 1)
+	fmt.Println(*pi)
 }
