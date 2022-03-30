@@ -7,6 +7,8 @@ import (
 
 func TestFunc(t *testing.T) {
 	fmt.Println(decodeString("3[z]2[2[y]pq4[2[jk]e1[f]]]ef"))
+	//
+	fmt.Println("zzzyypqjkjkefjkjkefjkjkefjkjkefyypqjkjkefjkjkefjkjkefjkjkefef")
 }
 
 //
