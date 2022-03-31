@@ -36,3 +36,10 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 }
 
 // @lc code=end
+
+/*
+	后序遍历
+	直接递归找，如果左结点和右结点都有，那最近公共祖先就是自己
+	如果只有左右单节点是自己，那就直接返回自己
+	如果左右单节点存在，那就返回左右单节点
+*/

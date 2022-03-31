@@ -20,3 +20,7 @@ func findDuplicate(nums []int) int {
 }
 
 // @lc code=end
+
+/*
+	直接用map记录当前数字出现的频次，如果出现过，即找到这个重复数
+*/

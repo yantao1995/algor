@@ -33,3 +33,9 @@ func minPathSum(grid [][]int) int {
 }
 
 // @lc code=end
+
+/*
+	因为dp数组反正都要沿用 grid[0][0] 的值，grid的值改变了也不会有问题，所有直接沿用grid数组为动归dp数组
+	因为每次只能向下或者向右移动一步，所以当前grid[i][j]由上面过来或者左边过来，
+	即 	grid[i][j] += min(grid[i-1][j], grid[i][j-1]) ，注意边界即可。
+*/

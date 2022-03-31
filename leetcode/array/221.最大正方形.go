@@ -39,3 +39,8 @@ func maximalSquare(matrix [][]byte) int {
 }
 
 // @lc code=end
+
+/*
+	双重循环i,j为起始点
+ 	向右下依次增加边界board值来判断是否为正方形
+*/

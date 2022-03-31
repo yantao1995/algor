@@ -33,3 +33,10 @@ func uniquePaths(m int, n int) int {
 }
 
 // @lc code=end
+
+/*
+	二维dp数组记录当前存在的路径数量，初始化dp[0][0]为1
+	因为机器人每次只能向下或者向右移动一步，所以当前
+	dp[i][j] = dp[i-1][j] + dp[i][j-1]
+	注意边界，适当修改  dp[i-1][j] + dp[i][j-1] 即可
+*/

@@ -31,3 +31,8 @@ func groupAnagrams(strs []string) [][]string {
 }
 
 // @lc code=end
+
+/*
+	将strs 遍历时，对每个字符进去排序，作为key，放进map的value中
+	相同key的即为结果集
+*/

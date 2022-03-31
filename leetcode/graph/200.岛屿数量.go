@@ -38,3 +38,8 @@ func numIslands(grid [][]byte) int {
 }
 
 // @lc code=end
+
+/*
+ 数组dp表示该岛屿是否已经遍历过
+ 遍历grid数组，然后如果没有被遍历过，就直接向四个方向遍历，直到遇到水或者边界
+*/

@@ -50,3 +50,7 @@ func sortColors(nums []int) {
 }
 
 // @lc code=end
+
+/*
+	因为题目要求按红白蓝，刚好是 0，1，2，原地排序，那就直接一个快排
+*/

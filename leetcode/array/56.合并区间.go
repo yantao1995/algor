@@ -51,3 +51,11 @@ func merge(intervals [][]int) [][]int {
 }
 
 // @lc code=end
+
+/*
+
+	用count来标记重合区间，题目说0 <= start_i <= end_i <= 1e4，所以直接初始化line标记数组为 1e4 的长度。
+	用 endPoint 来记录最大区间的右端点，获取结果的时候，不用只需要遍历到endPoint即可。
+	标记：遍历所有区间，单区间左值如果在标记数组count上有值，则直接取该值覆盖区间。
+	取值：遍历标记数组count,相同count值即为同一区间。
+*/

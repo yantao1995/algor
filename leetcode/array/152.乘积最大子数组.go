@@ -25,3 +25,7 @@ func maxProduct(nums []int) int {
 }
 
 // @lc code=end
+
+/*
+	双重遍历，从i开始到j的最大乘积，找到从所有i开始时的最大的乘积
+*/

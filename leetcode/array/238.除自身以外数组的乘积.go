@@ -23,3 +23,7 @@ func productExceptSelf(nums []int) []int {
 }
 
 // @lc code=end
+
+/*
+  时间复杂度n平方了，依次乘
+*/

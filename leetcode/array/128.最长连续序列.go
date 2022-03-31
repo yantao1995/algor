@@ -45,3 +45,7 @@ func longestConsecutive(nums []int) int {
 }
 
 // @lc code=end
+
+/*
+	先对数组排序，然后依次找最长序列。遇到不连续，i指针直接跳过来。当前序列如果超过未遍历值，也跳出。
+*/

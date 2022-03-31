@@ -57,3 +57,10 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 }
 
 // @lc code=end
+
+/*
+	建立临界矩阵，表示i课程的前置课程为j
+	进行深度优先遍历
+	canLoop 记录当前已经走过的路径，如果存在重复路径，表示不可能完成false
+	当前路径回退时delete掉走过的痕迹
+*/

@@ -27,3 +27,7 @@ func detectCycle(head *ListNode) *ListNode {
 }
 
 // @lc code=end
+
+/*
+	用map存储走过的结点，遇到已经走过的即为环结点
+*/
