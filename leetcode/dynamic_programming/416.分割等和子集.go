@@ -31,3 +31,10 @@ func canPartition(nums []int) bool {
 }
 
 // @lc code=end
+
+/*
+	两个相等的的子集，即当前数组和的一半
+	数组和为奇数 或者数组长度小于2均不可能完成
+
+
+*/

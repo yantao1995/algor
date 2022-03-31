@@ -5,6 +5,10 @@ import (
 	"fmt"
 )
 
+/*
+ 暂未实现下面逻辑
+*/
+
 //BlockIndex 分块查找，索引块
 type BlockIndex struct {
 	Start    int            //开始位置

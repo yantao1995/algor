@@ -59,7 +59,15 @@ func calcEquation(equations [][]string, values []float64, queries [][]string) []
 
 // @lc code=end
 
-//[1.13333,16.8,1.5,1.0,0.05952,2.26667,0.44118,-1.0,-1.0]
-//[1.33333,1.0,-1.0]
-//[6.0,0.5,-1.0,1.0,-1.0]
-//[0.66667,0.33333,-1.0,1.0,1.0,0.04464]
+/*
+	rm  : relation map 表示 字符串变量 之间的关系,可以理解为邻接矩阵
+	 rm[a][b:123] 表示  a/b值为 123
+	 由 a/b 可以计算出  a/b  a/a  b/b  b/a 四个关系
+
+	 若  rm[a][b:123,c:456]
+	 	 rm[b][e:123,f:123]
+		 rm[c].......
+	 那么由  b的关系，即可以得到  a 与 e f 的关系
+	 使用 graphFunc(prev,tails) 初始遍历时 prev = a   tails = [b,c]
+	再次向下递归时，prev =a  tails 则为 rm[b],rm[c] 的子map,即获取了 a与 e f ...的关系
+*/

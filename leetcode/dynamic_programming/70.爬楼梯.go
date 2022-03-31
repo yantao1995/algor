@@ -40,3 +40,10 @@ func climbStairs(n int) int {
 }
 
 // @lc code=end
+
+/*
+	dp[i]表示到第i阶，有dp[i]种方法
+	初始化dp数组，dp[1]=1,dp[2]=2
+	因为可以爬1阶和2阶，所以可以从 i-1 和 i-2 分别爬上来
+	即 dp[i] = dp[i-1]+dp[i-2]
+*/
