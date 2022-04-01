@@ -21,3 +21,7 @@ func dailyTemperatures(temperatures []int) []int {
 }
 
 // @lc code=end
+
+/*
+	双重循环，来找比i天高的气温天j
+*/

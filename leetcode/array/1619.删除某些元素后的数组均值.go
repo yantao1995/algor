@@ -23,3 +23,7 @@ func trimMean(arr []int) float64 {
 }
 
 // @lc code=end
+
+/*
+	排序，然后累加
+*/

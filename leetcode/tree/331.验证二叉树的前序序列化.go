@@ -33,3 +33,10 @@ func isValidSerialization(preorder string) bool {
 }
 
 // @lc code=end
+
+/*
+	使用栈来模拟操作
+	遍历结点，依次入栈
+	每次判断当前栈顶两个 #，即为叶子结点，
+	然后依次出栈并设置当前尾结点为#，方便判断父节点
+*/

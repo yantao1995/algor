@@ -31,3 +31,7 @@ func oddEvenList(head *ListNode) *ListNode {
 }
 
 // @lc code=end
+
+/*
+	奇偶头结点，分别指向对方的下一个结点，然后直到末尾
+*/

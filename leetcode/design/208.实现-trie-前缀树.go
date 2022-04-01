@@ -65,3 +65,7 @@ package leetcode
  * param_3 := obj.StartsWith(prefix);
  */
 // @lc code=end
+
+/*
+	map 存前缀结点，isVal标记当前结点
+*/

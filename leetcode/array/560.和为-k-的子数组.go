@@ -22,3 +22,8 @@ func subarraySum(nums []int, k int) int {
 }
 
 // @lc code=end
+
+/*
+	双重循环
+	连续累加，从每个i开始，用j来进行累加
+*/

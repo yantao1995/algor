@@ -23,3 +23,8 @@ func judgeSquareSum(c int) bool {
 }
 
 // @lc code=end
+
+/*
+	将C 分拆为  left平方 + right平方
+	左边为平方数依次累加
+*/

@@ -21,3 +21,9 @@ func subsets(nums []int) [][]int {
 }
 
 // @lc code=end
+
+/*
+	回溯，因为要求数组中元素互不相同
+	所以记录当前的扫描的index，
+	然后向后遍历来进行剪枝重复元素
+*/

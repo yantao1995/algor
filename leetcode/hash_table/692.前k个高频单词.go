@@ -38,3 +38,7 @@ func topKFrequent(words []string, k int) []string {
 }
 
 // @lc code=end
+
+/*
+	map存出现的次数，然后对key排序
+*/

@@ -36,3 +36,15 @@ func findAnagrams(s string, p string) []int {
 }
 
 // @lc code=end
+
+/*
+	将p存入 pMap，记录下每个字符的数量
+	然后遍历 s，将每个 s[i] 存入iMap中
+	iMap扫描长度 小于 len(p) 时，先存够
+	iMap扫描长度 大于等于 len(p) 时，使用
+		iMap[s[i]]++
+		iMap[s[i-len(p)]]--
+		来保证当前扫描存储的长度是 len(p),
+	然后每个元素通过iMap后，来扫描个数是否相同
+	如果相同， i-len(p)+1 就是起始元素位置
+*/

@@ -48,3 +48,8 @@ func getMaxVal1026(maxVal, temp *int, val1, val2 int) {
 }
 
 // @lc code=end
+
+/*
+	先序遍历
+	记录整棵树的最大值和最小值，然后找绝对值
+*/

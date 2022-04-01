@@ -23,3 +23,7 @@ func specialArray(nums []int) int {
 }
 
 // @lc code=end
+
+/*
+	排序，然后判断
+*/

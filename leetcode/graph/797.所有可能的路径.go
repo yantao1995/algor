@@ -27,3 +27,7 @@ func allPathsSourceTarget(graph [][]int) [][]int {
 }
 
 // @lc code=end
+
+/*
+	因为是有向无环图，所以可以直接dfs找出所有能到达的位置
+*/

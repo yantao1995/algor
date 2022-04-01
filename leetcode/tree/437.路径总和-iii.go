@@ -42,3 +42,9 @@ func pathSum(root *TreeNode, targetSum int) int {
 }
 
 // @lc code=end
+
+/*
+	treeDp2  依次向下遍历每个节点，具体先中后都可以
+	然后每个节点调用 treeDp 从每个节点开始，依次计算当前节点向下遍历的累加值
+	因为节点中包含 负数和0 ，所以在找到等值时，依然继续向下遍历
+*/

@@ -21,3 +21,7 @@ func maximumGap(nums []int) int {
 }
 
 // @lc code=end
+
+/*
+ 排序，然后找
+*/
