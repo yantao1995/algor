@@ -6,7 +6,8 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println()
+
+	fmt.Println(minWindow("a", "aa"))
 }
 
 //
