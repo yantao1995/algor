@@ -8,46 +8,20 @@ package leetcode
 
 // @lc code=start
 func isMatch(s string, p string) bool {
-	isMatch := false
-	var backtrace func(si, pi, idx int)
-	backtrace = func(si, pi, idx int) {
-		if isMatch {
-			return
-		}
-		if si == len(s) && pi == len(p) {
-			isMatch = true
-			return
-		}
-		for si < len(s) && pi < len(p) {
-			if s[si] == p[pi] || p[pi] == '.' {
-				si++
-				pi++
-			} else if p[pi] == '*' {
-				backtrace(si, pi+1, 0)
-				if isMatch {
-					return
-				}
-				if idx == 0 || (idx > 0 || (si > 0 && s[si] == s[si-1])) {
-					si++
-					backtrace(si, pi, idx+1)
-					if isMatch {
-						return
-					}
-				}
-				pi++
-				backtrace(si, pi, idx)
-			} else if si == 0 && pi == 0 {
-				pi++
-			} else if si >= len(s)-1 && pi < len(p) {
-				isMatch = true
-				return
-			} else {
-				return
+	dp := make([][]bool, len(s))
+	for k := range dp {
+		dp[k] = make([]bool, len(p))
+	}
+	for i := 0; i < len(s); i++ {
+		for j := 0; j < len(p); j++ {
+			if s[i] == p[j] || p[j] == '.' {
+				dp[i][j] = true
+			} else if p[j] == '*' {
+				dp[i][j] = true
 			}
 		}
 	}
-	backtrace(0, 0, 0)
-	return isMatch
+	return dp[len(s)-1][len(p)-1]
 }
 
 // @lc code=end
