@@ -6,7 +6,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println(generateMatrix(3))
+	fmt.Println()
 }
 
 //
