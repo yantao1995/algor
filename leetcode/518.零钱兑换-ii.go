@@ -1,7 +1,5 @@
 package leetcode
 
-import "sort"
-
 /*
  * @lc app=leetcode.cn id=518 lang=golang
  *
@@ -10,18 +8,22 @@ import "sort"
 
 // @lc code=start
 func change(amount int, coins []int) int {
-	dp := make([]int, amount+1)
-	sort.Ints(coins)
-	for i := 1; i <= amount; i++ {
-		for j := 0; j < len(coins); j++ {
-			if coins[j] > i {
-				break
-			}
-			dp[i] = dp[coins[j]-i] + 1
-		}
+	// sort.Ints(coins)
+	dp := make([][]int, amount+1) // dp[i][j]
+	// for k := range dp {
+	// 	dp[k] = make([]int, amount+1)
+	// }
+	// max := func(a, b int) int {
+	// 	if a > b {
+	// 		return a
+	// 	}
+	// 	return b
+	// }
+	// for k := range coins { //用当前硬币 有多少种
 
-	}
-	return dp[amount]
+	// }
+
+	return dp[amount][amount]
 }
 
 // @lc code=end

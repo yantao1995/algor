@@ -18,7 +18,7 @@ func canPartition(nums []int) bool {
 	half := total / 2
 	can := make([]bool, half+1)
 	for k := range nums {
-		for j := len(can) - 1; j > 0; j-- {
+		for j := half; j > 0; j-- {
 			if can[j] && j+nums[k] <= half {
 				can[j+nums[k]] = true
 			}
