@@ -6,7 +6,8 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println()
+
+	fmt.Println(lastStoneWeightII([]int{2, 7, 4, 1, 8, 1}))
 }
 
 //
