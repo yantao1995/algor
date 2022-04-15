@@ -1,7 +1,5 @@
 package leetcode
 
-import "fmt"
-
 /*
  * @lc app=leetcode.cn id=72 lang=golang
  *
@@ -35,7 +33,6 @@ func minDistance(word1 string, word2 string) int {
 			}
 		}
 	}
-	fmt.Println(dp)
 	return dp[len(dp)-1][len(dp[0])-1]
 }
 
