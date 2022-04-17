@@ -7,16 +7,16 @@ package leetcode
  */
 
 // @lc code=start
-func maxProfit(prices []int) int {
-	result := 0
-	for i := 1; i < len(prices); i++ {
-		if prices[i] >= prices[0] {
-			result += prices[i] - prices[0]
-		}
-		prices[0] = prices[i]
-	}
-	return result
-}
+// func maxProfit(prices []int) int {
+// 	result := 0
+// 	for i := 1; i < len(prices); i++ {
+// 		if prices[i] >= prices[0] {
+// 			result += prices[i] - prices[0]
+// 		}
+// 		prices[0] = prices[i]
+// 	}
+// 	return result
+// }
 
 // @lc code=end
 
