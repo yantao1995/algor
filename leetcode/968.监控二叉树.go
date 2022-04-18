@@ -1,7 +1,5 @@
 package leetcode
 
-import "fmt"
-
 /*
  * @lc app=leetcode.cn id=968 lang=golang
  *
@@ -18,35 +16,19 @@ import "fmt"
  * }
  */
 func minCameraCover(root *TreeNode) int {
-	stack := []*TreeNode{root, nil} //trees
-	count := []int{}                // 每层多少个结点
-	for i := 0; i < len(stack); i++ {
-		if stack[i] != nil {
-			if stack[i].Left != nil {
-				stack = append(stack, stack[i].Left)
-			}
-			if stack[i].Right != nil {
-				stack = append(stack, stack[i].Right)
-			}
-		} else {
-			if i == len(stack)-1 {
-				break
-			}
-			stack = append(stack, nil)
+	if root.Left == nil && root.Right == nil {
+		return 1
+	}
+	result := 0
+	var recursion func(root *TreeNode, level int)
+	recursion = func(root *TreeNode, level int) {
+		if root != nil {
+			recursion(root.Left, level+1)
+			recursion(root.Right, level+1)
 		}
 	}
-	current := 0
-	for i := range stack {
-		if stack[i] != nil {
-			current++
-		} else {
-			count = append(count, current)
-			current = 0
-		}
-	}
-	fmt.Println(count)
-
-	return 0
+	recursion(root, 0)
+	return result
 }
 
 // @lc code=end
