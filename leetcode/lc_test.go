@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-func TestFunc(t *testing.T) {
-	fmt.Println(longestCommonSubsequence("abcba", "abcbcba"))
+func TestFunc(t *testing.T) { //2,1,2,0,1     3, 3, 5, 0, 0, 3, 1, 4    2, 1, 4, 5, 2, 9, 7
+	fmt.Println(maxProfit([]int{2, 1, 4, 5, 2, 9, 7}))
 }
 
 //
