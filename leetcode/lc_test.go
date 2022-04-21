@@ -5,9 +5,9 @@ import (
 	"testing"
 )
 
-func TestFunc(t *testing.T) { //2,1,2,0,1     3, 3, 5, 0, 0, 3, 1, 4    2, 1, 4, 5, 2, 9, 7
-	fmt.Println(maxProfit([]int{6, 5, 4, 8, 6, 8, 7, 8, 9, 4, 5})) // 1,2,3,4,5
-	//6,5,4,8,6,8,7,8,9,4,5         2,4,1
+func TestFunc(t *testing.T) {
+	fmt.Println()
+
 }
 
 //
