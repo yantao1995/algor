@@ -19,4 +19,5 @@ func getRandQuestion() int {
 }
 
 func test2() {
+
 }
