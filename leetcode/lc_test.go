@@ -6,8 +6,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println(longestCommonSubsequence("bmvcnwrmxcfcxabkxcvgbozmpspsbenazglyxkpibgzq", "bmpmlstotylonkvmhqjyxmnqzctonqtobahcrcbibgzgx"))
-
+	fmt.Println()
 }
 
 //
