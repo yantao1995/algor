@@ -25,7 +25,7 @@ func countSubstrings(s string) int {
 // @lc code=end
 
 /*
-	dp数组memorandum记录字符串是否为回文子串。
+	memorandum记录字符串是否为回文子串。
 	end 向后遍历，start向前扩张，只需要 s[start] =s[end]，再判断start和end中间的
 	字符串是否为回文字符串，就可以知道当前 s[start:end]是否为回文字符串。
 */
