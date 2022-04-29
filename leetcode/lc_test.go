@@ -6,7 +6,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println()
+	fmt.Println(nthUglyNumber(1267))
 }
 
 //
