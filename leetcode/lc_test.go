@@ -6,7 +6,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println(numDecodings("123123"))
+	fmt.Println()
 }
 
 //
