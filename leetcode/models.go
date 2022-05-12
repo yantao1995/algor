@@ -10,11 +10,19 @@ type ListNode struct {
 	Next *ListNode
 }
 
+//四叉树node
+// type Node struct {
+// 	Val         bool
+// 	IsLeaf      bool
+// 	TopLeft     *Node
+// 	TopRight    *Node
+// 	BottomLeft  *Node
+// 	BottomRight *Node
+// }
+
 type Node struct {
-	Val         bool
-	IsLeaf      bool
-	TopLeft     *Node
-	TopRight    *Node
-	BottomLeft  *Node
-	BottomRight *Node
+	Val   int
+	Left  *Node
+	Right *Node
+	Next  *Node
 }

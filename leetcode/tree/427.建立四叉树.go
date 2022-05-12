@@ -19,59 +19,59 @@ package leetcode
  * }
  */
 
-func construct(grid [][]int) *Node {
-	isLeaf := func(is, ie, js, je int) (int, bool) { //矩阵的范围坐标 是不是叶子
-		if is < 0 || js < 0 || ie >= len(grid) || je >= len(grid) {
-			return 1, true
-		}
-		currentVal := grid[is][js]
-		for i := is; i <= ie; i++ {
-			for j := js; j <= je; j++ {
-				if grid[i][j] != currentVal {
-					return 0, false
-				}
-			}
-		}
-		return currentVal, true
-	}
-	var createNode func(is, ie, js, je int) *Node
-	createNode = func(is, ie, js, je int) *Node {
-		if is <= ie && js <= je {
-			if val, ok := isLeaf(is, ie, js, je); ok {
-				return &Node{
-					Val:         val == 1,
-					IsLeaf:      true,
-					TopLeft:     nil,
-					TopRight:    nil,
-					BottomLeft:  nil,
-					BottomRight: nil,
-				}
-			}
-			il, jl := (ie-is+1)/2, (je-js+1)/2
-			return &Node{
-				Val:         false,
-				IsLeaf:      false,
-				TopLeft:     createNode(is, is+il-1, js, js+jl-1),
-				TopRight:    createNode(is, is+il-1, js+jl, je),
-				BottomLeft:  createNode(is+il, ie, js, js+jl-1),
-				BottomRight: createNode(is+il, ie, js+jl, je),
-			}
-		}
-		return nil
-	}
-	return createNode(0, len(grid)-1, 0, len(grid)-1)
-}
+// func construct(grid [][]int) *Node {
+// 	isLeaf := func(is, ie, js, je int) (int, bool) { //矩阵的范围坐标 是不是叶子
+// 		if is < 0 || js < 0 || ie >= len(grid) || je >= len(grid) {
+// 			return 1, true
+// 		}
+// 		currentVal := grid[is][js]
+// 		for i := is; i <= ie; i++ {
+// 			for j := js; j <= je; j++ {
+// 				if grid[i][j] != currentVal {
+// 					return 0, false
+// 				}
+// 			}
+// 		}
+// 		return currentVal, true
+// 	}
+// 	var createNode func(is, ie, js, je int) *Node
+// 	createNode = func(is, ie, js, je int) *Node {
+// 		if is <= ie && js <= je {
+// 			if val, ok := isLeaf(is, ie, js, je); ok {
+// 				return &Node{
+// 					Val:         val == 1,
+// 					IsLeaf:      true,
+// 					TopLeft:     nil,
+// 					TopRight:    nil,
+// 					BottomLeft:  nil,
+// 					BottomRight: nil,
+// 				}
+// 			}
+// 			il, jl := (ie-is+1)/2, (je-js+1)/2
+// 			return &Node{
+// 				Val:         false,
+// 				IsLeaf:      false,
+// 				TopLeft:     createNode(is, is+il-1, js, js+jl-1),
+// 				TopRight:    createNode(is, is+il-1, js+jl, je),
+// 				BottomLeft:  createNode(is+il, ie, js, js+jl-1),
+// 				BottomRight: createNode(is+il, ie, js+jl, je),
+// 			}
+// 		}
+// 		return nil
+// 	}
+// 	return createNode(0, len(grid)-1, 0, len(grid)-1)
+// }
 
-// @lc code=end
+// // @lc code=end
 
-type Node struct {
-	Val         bool
-	IsLeaf      bool
-	TopLeft     *Node
-	TopRight    *Node
-	BottomLeft  *Node
-	BottomRight *Node
-}
+// type Node struct {
+// 	Val         bool
+// 	IsLeaf      bool
+// 	TopLeft     *Node
+// 	TopRight    *Node
+// 	BottomLeft  *Node
+// 	BottomRight *Node
+// }
 
 /*
 	题目描述 ::: 翻译
