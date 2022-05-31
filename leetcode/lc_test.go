@@ -6,7 +6,7 @@ import (
 )
 
 func TestFunc(t *testing.T) { //15
-	fmt.Println(longestSubstring("aaabbbcdefcdefgggggggggggggggcde", 3))
+	fmt.Println()
 }
 
 //
