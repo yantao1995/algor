@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-func TestFunc(t *testing.T) {
-	fmt.Println()
+func TestFunc(t *testing.T) { //15
+	fmt.Println(longestSubstring("aaabbbcdefcdefgggggggggggggggcde", 3))
 }
 
 //
