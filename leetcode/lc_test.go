@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestFunc(t *testing.T) { //15
+func TestFunc(t *testing.T) {
 	fmt.Println()
 }
 
