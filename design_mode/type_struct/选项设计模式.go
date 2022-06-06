@@ -1,5 +1,10 @@
 package design_mode
 
+/*
+有时候一个函数会有很多参数，为了方便函数的使用，
+会给希望给一些参数设定默认值，调用时只需要传与默认值不同的参数即可
+*/
+
 type Option struct {
 	id   int
 	name string
@@ -34,8 +39,3 @@ func NameOpFunc(name string) OptionFunc {
 		o.name = name
 	}
 }
-
-/*
-有时候一个函数会有很多参数，为了方便函数的使用，
-会给希望给一些参数设定默认值，调用时只需要传与默认值不同的参数即可
-*/
