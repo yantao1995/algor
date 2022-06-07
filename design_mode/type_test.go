@@ -8,6 +8,61 @@ import (
 )
 
 func TestTypeStruct(t *testing.T) {
+	//桥  (抽象类和实现类的组合)
+	m := design_struct.NewCommonMessage(design_struct.ViaSMS())
+	m.SendMessage("test via sms", "zhang san")
+	m2 := design_struct.NewCommonMessage(design_struct.ViaEmail())
+	m2.SendMessage("test via email", "li si")
+	m3 := design_struct.NewUrgencyMessage(design_struct.ViaSMS())
+	m3.SendMessage("test urgency via sms", "zhang si")
+	m4 := design_struct.NewUrgencyMessage(design_struct.ViaEmail())
+	m4.SendMessage("test urgency via email", "li san")
+
+	//装饰  (继承，多态,不会调用父类方法)
+	var decorator design_struct.ComponentDecorator = &design_struct.ComponentDecoratorImpl{}
+	fmt.Println(decorator.Calc())
+	decorator = design_struct.NewAddDecoratorImpl(decorator, 10)
+	fmt.Println(decorator.Calc())
+	decorator = design_struct.NewMulDecoratorImpl(decorator, 8)
+	fmt.Println(decorator.Calc())
+	decorator = design_struct.NewAddDecoratorImpl(decorator, 8)
+	fmt.Println(decorator.Calc())
+
+	//享元	(共享对象而不复制对象)
+	viewer := design_struct.NewImageViewer("imageViewer")
+	viewer.Display()
+	viewer2 := design_struct.NewImageViewer("imageViewer")
+	fmt.Println(viewer.ImageFlyweight == viewer2.ImageFlyweight)
+
+	//组合  (使用相同的接口来调用对象集)
+	root := design_struct.NewComponent(design_struct.CompositeNode, "root")
+	n1 := design_struct.NewComponent(design_struct.CompositeNode, "n1")
+	n2 := design_struct.NewComponent(design_struct.CompositeNode, "n2")
+	n3 := design_struct.NewComponent(design_struct.CompositeNode, "n3")
+	l1 := design_struct.NewComponent(design_struct.LeafNode, "l1")
+	l2 := design_struct.NewComponent(design_struct.LeafNode, "l2")
+	l3 := design_struct.NewComponent(design_struct.LeafNode, "l3")
+	root.AddChild(n1)
+	root.AddChild(n2)
+	n1.AddChild(n3)
+	n1.AddChild(l1)
+	n2.AddChild(l2)
+	n2.AddChild(l3)
+	root.Print("prev ")
+
+	//代理  (调用对象方法前后进行处理)
+	var sub design_struct.Subject = &design_struct.Proxy{}
+	fmt.Println(sub.Do())
+
+	//适配器   (实现接口调用对应需要适配的接口)
+	adaptee := design_struct.NewAdaptee()
+	target := design_struct.NewTarget(adaptee)
+	fmt.Println(target.Request())
+
+	//外观   (对外提供一个的接口，包含多个接口的方法的处理结果)
+	api := design_struct.NewApi()
+	fmt.Println(api.Test())
+
 	//选项  （初始化时为对象的每个属性赋值）
 	struct_op := design_struct.NewOption(design_struct.IdOpFunc(1), design_struct.NameOpFunc("name"))
 	fmt.Println(struct_op)

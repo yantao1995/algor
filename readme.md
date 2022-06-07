@@ -9,7 +9,7 @@
   - 其余各个分类中都是对应标签的题
   - 2022年1月1号之后做的题，均在最底下写明了做题思路。
 
-- design_mode：设计模式的实现demo
+- design_mode：常用设计模式的实现demo
 
   - type_behavior: 行为型模式
   - type_create：创建型模式
