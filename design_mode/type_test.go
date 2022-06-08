@@ -1,12 +1,24 @@
 package design_mode
 
 import (
+	design_behavior "algor/design_mode/type_behavior"
 	design_create "algor/design_mode/type_create"
 	design_struct "algor/design_mode/type_struct"
 	"fmt"
 	"testing"
 )
 
+func TestTypeBehavior(t *testing.T) {
+	//观察者   (被观察者注册到观察者持有)
+
+	return
+	//中介者   (封装了对象直接的交互关系)
+	mediator := design_behavior.GetMediatorInstance()
+	mediator.CD = &design_behavior.CDDriver{}
+	mediator.CPU = &design_behavior.CPU{}
+	mediator.CD.ReadData()
+	fmt.Println(mediator.CD.Data, mediator.CPU.Sound, mediator.CPU.Video)
+}
 func TestTypeStruct(t *testing.T) {
 	//桥  (抽象类和实现类的组合)
 	m := design_struct.NewCommonMessage(design_struct.ViaSMS())
