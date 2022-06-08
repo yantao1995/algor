@@ -9,9 +9,15 @@ import (
 )
 
 func TestTypeBehavior(t *testing.T) {
-	//观察者   (被观察者注册到观察者持有)
-
 	return
+	//观察者   (被观察者注册到观察者持有，然后观察者更新时，挨个通知被观察者)
+	reader1 := design_behavior.NewReader("reader1")
+	reader2 := design_behavior.NewReader("reader2")
+	subject := design_behavior.NewSubject()
+	subject.Attach(reader1)
+	subject.Attach(reader2)
+	subject.UpdateContext("通知")
+
 	//中介者   (封装了对象直接的交互关系)
 	mediator := design_behavior.GetMediatorInstance()
 	mediator.CD = &design_behavior.CDDriver{}

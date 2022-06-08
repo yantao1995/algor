@@ -32,7 +32,7 @@ type Subject struct {
 	context   string
 }
 
-func NesSubject() *Subject {
+func NewSubject() *Subject {
 	return &Subject{observers: []Observer{}}
 }
 
