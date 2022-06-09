@@ -10,6 +10,28 @@ import (
 
 func TestTypeBehavior(t *testing.T) {
 	return
+	//模板方法 (父类提供并实现模版方法,子类选择性实现模板方法,继承父类方法)
+	var downloaderHttp design_behavior.Downloader = design_behavior.NewHTTPDownloader()
+	downloaderHttp.Download("http source")
+	var downloaderFtp design_behavior.Downloader = design_behavior.NewFTPDownloader()
+	downloaderFtp.Download("ftp source")
+
+	//迭代器 (迭代目标对象的索引范围值，实现对任意对象的迭代)
+	var aggregate design_behavior.Aggregate
+	aggregate = design_behavior.NewNumber(1, 10)
+	design_behavior.IteratorPrint(aggregate.Iterator())
+
+	//命令 (将目标对象的方法封装到对象中，来进行调用)
+	mb := &design_behavior.MainBoard{}
+	startCommand := design_behavior.NewStartCommand(mb)
+	rebootCommand := design_behavior.NewRebootCommand(mb)
+	box1 := design_behavior.NewBox(startCommand, rebootCommand)
+	box1.PressButton1()
+	box1.PressButton2()
+	box2 := design_behavior.NewBox(rebootCommand, startCommand)
+	box2.PressButton1()
+	box2.PressButton2()
+
 	//观察者   (被观察者注册到观察者持有，然后观察者更新时，挨个通知被观察者)
 	reader1 := design_behavior.NewReader("reader1")
 	reader2 := design_behavior.NewReader("reader2")
