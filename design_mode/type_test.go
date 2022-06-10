@@ -9,7 +9,59 @@ import (
 )
 
 func TestTypeBehavior(t *testing.T) {
-	return
+	//访问者 (创建的一组对象，通过传入访问类型的不同，来定制访问这些对象)
+	cc := &design_behavior.CustomerCol{}
+	cc.Add(design_behavior.NewEnterpriseCustomer("A 公司"))
+	cc.Add(design_behavior.NewEnterpriseCustomer("B 公司"))
+	cc.Add(design_behavior.NewIndividualCustomer("tany"))
+	cc.Accept(&design_behavior.ServiceRequestVisitor{})
+	fmt.Println("------------------")
+	cc2 := &design_behavior.CustomerCol{}
+	cc2.Add(design_behavior.NewEnterpriseCustomer("A 公司"))
+	cc2.Add(design_behavior.NewIndividualCustomer("tany"))
+	cc2.Add(design_behavior.NewEnterpriseCustomer("B 公司"))
+	cc.Accept(&design_behavior.AnalysisVisitor{})
+
+	//职责链 (一条执行链条，可以灵活绑定下一级处理对象)
+	c1 := design_behavior.NewProjectManagerChain()
+	c2 := design_behavior.NewDepManagerChain()
+	c3 := design_behavior.NewGeneralManagerChain()
+	c1.SetSuccessor(c2) //绑定链条
+	c2.SetSuccessor(c3)
+	var c design_behavior.Manager = c1
+	c.HandleFeeRequest("tany", 400)
+	c.HandleFeeRequest("anyT", 1400)
+	c.HandleFeeRequest("ayt", 10000)
+	c.HandleFeeRequest("tany", 400)
+
+	//解释器 (自定义一套语言运算方式，执行特定语法的控制)
+	p := &design_behavior.Parser{}
+	p.Parse("3 + 2 - 3 + 6 - 5")
+	fmt.Println(p.Result().Interpret())
+
+	//备忘录 (保存程序当前状态而不暴露内部细节)
+	game := &design_behavior.Game{}
+	game.Play(2, 2)
+	game.Status()
+	progress := game.Save()
+	game.Play(10, 10)
+	game.Status()
+	game.Load(progress)
+	game.Status()
+
+	//状态 (链式调用Next时，直接将下一个对象给当前对象赋值)
+	ctx := design_behavior.NewDayContext()
+	for i := 0; i < 4; i++ {
+		ctx.Today()
+		ctx.Next()
+	}
+
+	//策略 (接口的多态，根据不同对象，执行不同的方法)
+	paymentCash := design_behavior.NewPayment("Tany", "", 123, &design_behavior.Cash{})
+	paymentCash.Pay()
+	paymentBank := design_behavior.NewPayment("Tany", "1000", 123, &design_behavior.Bank{})
+	paymentBank.Pay()
+
 	//模板方法 (父类提供并实现模版方法,子类选择性实现模板方法,继承父类方法)
 	var downloaderHttp design_behavior.Downloader = design_behavior.NewHTTPDownloader()
 	downloaderHttp.Download("http source")
