@@ -13,12 +13,12 @@ type MedianFinder struct {
 }
 
 /** initialize your data structure here. */
-func Constructor() MedianFinder {
-	return MedianFinder{
-		Data: []int{},
-		Len:  0,
-	}
-}
+// func Constructor() MedianFinder {
+// 	return MedianFinder{
+// 		Data: []int{},
+// 		Len:  0,
+// 	}
+// }
 
 func (this *MedianFinder) AddNum(num int) {
 	if len(this.Data) == 0 {
