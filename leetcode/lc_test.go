@@ -6,7 +6,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println()
+	fmt.Println(diffWaysToCompute("2*3-4*5"))
 }
 
 //
