@@ -6,7 +6,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println(evaluate("(let x 2 (mult (let x 3 y 4 (add x y)) x))"))
+	fmt.Println()
 }
 
 //
