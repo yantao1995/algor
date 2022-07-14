@@ -7,13 +7,7 @@ import (
 
 func TestFunc(t *testing.T) {
 
-	fmt.Println(cherryPickup([][]int{
-		{1, 1, -1, 1, 1},
-		{1, 1, 1, 1, 1},
-		{-1, 1, 1, -1, -1},
-		{0, 1, 1, -1, 0},
-		{1, 0, -1, 1, 0},
-	}))
+	fmt.Println()
 
 }
 
