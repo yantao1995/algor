@@ -6,9 +6,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-
 	fmt.Println()
-
 }
 
 //
