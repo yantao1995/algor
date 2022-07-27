@@ -39,7 +39,7 @@ func Constructor() Skiplist {
 	}
 	sk.getLevel = func() int {
 		level := 1
-		for level <= *sk.constMaxLevel &&
+		for level < *sk.constMaxLevel &&
 			sk.probable <= sk.rd.Float64() {
 			level++
 		}
@@ -102,15 +102,27 @@ func (this *Skiplist) Erase(num int) bool {
 	if searchNode == nil {
 		return false
 	}
+	this.count--
 	if len(searchNode.data) > 1 {
 		searchNode.data = searchNode.data[:len(searchNode.data)-1]
 	} else {
-		score, data := 0, []int{}
-		for node := this.headLevel[0]; node != nil; node = node.level[0] {
-
+		var node *skipListNode
+		for level := len(searchNode.level) - 1; level >= 0; level-- {
+			if node == nil {
+				node = this.headLevel[level]
+			}
+			if node == searchNode {
+				this.headLevel[level] = node.level[level]
+				continue
+			}
+			for ; node.level[level] != nil; node = node.level[level] {
+				if node.level[level] == searchNode {
+					node.level[level] = searchNode.level[level]
+					break
+				}
+			}
 		}
 	}
-	this.count--
 	return true
 
 }
@@ -128,8 +140,8 @@ func (this *Skiplist) Print() {
 	for level := len(this.headLevel) - 1; level >= 0; level-- {
 		fmt.Printf("headLevel[%d]:", level)
 		for node := this.headLevel[0]; node != nil; node = node.level[0] {
-			if len(node.level) >= level {
-				fmt.Printf("\t-->\t%d[%d", node.data[0], len(node.data))
+			if len(node.level) > level {
+				fmt.Printf("\t-->\t%d%d", node.data[0], len(node.data))
 			} else {
 				if node.level[0] != nil {
 					fmt.Printf("\t---\t---")
