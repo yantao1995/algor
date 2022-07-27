@@ -6,7 +6,20 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println(fractionAddition("4/5"))
+	sk := Constructor()
+	sk.Add(5)
+	sk.Print()
+	sk.Add(3)
+	sk.Print()
+	sk.Add(1)
+	sk.Print()
+	sk.Add(4)
+	sk.Print()
+	sk.Add(3)
+	sk.Print()
+	//fmt.Println(sk.Search(2))
+	//fmt.Println(sk.Search(1))
+	fmt.Println()
 }
 
 //
