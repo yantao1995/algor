@@ -3,7 +3,6 @@ package leetcode
 import (
 	"fmt"
 	"math/rand"
-	"time"
 )
 
 /*
@@ -19,7 +18,7 @@ type Skiplist struct {
 	constMaxLevel *int            //最大层数限制
 	headLevel     []*skipListNode //头结点
 	count         int             //结点数量
-	getLevel      func() int      //获取生成结点的数量
+	getLevel      func() int      //获取生成结点的层高
 }
 
 type skipListNode struct {
@@ -28,42 +27,41 @@ type skipListNode struct {
 	data  []int           //存放相同数据
 }
 
-func Constructor() Skiplist {
-	maxLevel := 8
-	sk := Skiplist{
-		rd:            rand.New(rand.NewSource(time.Now().Unix())),
-		probable:      0.5,
-		constMaxLevel: &maxLevel,
-		headLevel:     make([]*skipListNode, maxLevel),
-		count:         0,
-	}
-	sk.getLevel = func() int {
-		level := 1
-		for level < *sk.constMaxLevel &&
-			sk.probable <= sk.rd.Float64() {
-			level++
-		}
-		return level
-	}
-	return sk
-}
+// func Constructor() Skiplist {
+// 	maxLevel := 8
+// 	sk := Skiplist{
+// 		rd:            rand.New(rand.NewSource(time.Now().Unix())),
+// 		probable:      0.5,
+// 		constMaxLevel: &maxLevel,
+// 		headLevel:     make([]*skipListNode, maxLevel),
+// 		count:         0,
+// 	}
+// 	sk.getLevel = func() int {
+// 		level := 1
+// 		for level < *sk.constMaxLevel &&
+// 			sk.probable <= sk.rd.Float64() {
+// 			level++
+// 		}
+// 		return level
+// 	}
+// 	return sk
+// }
 func (this *Skiplist) search(target int) *skipListNode {
-	if this.count == 0 {
-		return nil
-	}
-	fTarget := float64(target)
-	var node *skipListNode
-	for level := len(this.headLevel) - 1; level >= 0; level-- {
-		node = this.headLevel[level]
-		if node != nil && node.score <= fTarget {
-			for ; level >= 0; level-- {
-				for {
-					if node.score == fTarget {
-						return node
-					} else if node.level[level] != nil && node.level[level].score <= fTarget {
-						node = node.level[level]
-					} else {
-						break
+	if this.count > 0 {
+		fTarget := float64(target)
+		var node *skipListNode
+		for level := len(this.headLevel) - 1; level >= 0; level-- {
+			node = this.headLevel[level]
+			if node != nil && node.score <= fTarget {
+				for ; level >= 0; level-- {
+					for {
+						if node.score == fTarget {
+							return node
+						} else if node.level[level] != nil && node.level[level].score <= fTarget {
+							node = node.level[level]
+						} else {
+							break
+						}
 					}
 				}
 			}
@@ -108,12 +106,12 @@ func (this *Skiplist) Erase(num int) bool {
 	} else {
 		var node *skipListNode
 		for level := len(searchNode.level) - 1; level >= 0; level-- {
+			if this.headLevel[level] == searchNode {
+				this.headLevel[level] = searchNode.level[level]
+				continue
+			}
 			if node == nil {
 				node = this.headLevel[level]
-			}
-			if node == searchNode {
-				this.headLevel[level] = node.level[level]
-				continue
 			}
 			for ; node.level[level] != nil; node = node.level[level] {
 				if node.level[level] == searchNode {
@@ -156,43 +154,28 @@ func (this *Skiplist) Print() {
 }
 
 /*
-备份，常规添加
-func (this *Skiplist) Add(num int) {
-	this.count++
-	addNode := &skipListNode{
-		level: make([]*skipListNode, this.getLevel()),
-		score: float64(num),
-		data:  []int{num},
-	}
-	var node *skipListNode
-	for level := len(addNode.level) - 1; level >= 0; level-- {
-		node = this.headLevel[level]
-		if node == nil {
-			this.headLevel[level] = addNode
-		} else {
-			if node.score == addNode.score {
-				node.data = append(node.data, num)
-				node.level = append(node.level, addNode.level[level+1:]...)
-				return
-			} else if node.score < addNode.score {
-				for ; level >= 0; level-- {
-					for {
-						if node.score == addNode.score {
-							node.data = append(node.data, num)
-							node.level = append(node.level, addNode.level[level+1:]...)
-							return
-						} else if node.level[level] != nil && node.level[level].score <= addNode.score {
-							node = node.level[level]
-						} else {
-							this.headLevel[level], addNode.level[level] = addNode, this.headLevel[level]
-							break
-						}
-					}
-				}
-			} else if node.score > addNode.score {
-				this.headLevel[level], addNode.level[level] = addNode, this.headLevel[level]
-			}
-		}
-	}
+	常规实现
+
+type Skiplist struct {
+	rd            *rand.Rand		//用于生成层高
+	probable      float64         //层数生成概率
+	constMaxLevel *int            //最大层数限制
+	headLevel     []*skipListNode //头结点的层数映射
+	count         int             //结点数量
+	getLevel      func() int      //获取生成结点的层高  【概率指数，每加一层，都要算一次概率】
 }
+
+type skipListNode struct {
+	level []*skipListNode //前进指针
+	score float64         //分值权重 【当前分值 = data值】
+	data  []int           //存放相同数据
+}
+
+	添加结点:
+		直接添加到第一个位置，然后交换score和data到指定位置
+	删除结点：
+		data存储多个，则不删除结点，只删除数据
+		data只有1个，则需要删除结点,层序遍历，找到指定结点之后，前一个结点的指针直接指向后一个结点
+	查找：
+		从顶层依次向下查找
 */

@@ -6,28 +6,6 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	sk := Constructor()
-	sk.Add(9)
-	sk.Add(4)
-	sk.Add(5)
-	sk.Add(6)
-	sk.Add(9)
-	sk.Print()
-	fmt.Println(sk.Erase(2))
-	sk.Print()
-	fmt.Println(sk.Erase(1))
-	sk.Print()
-	sk.Add(2)
-	sk.Print()
-	fmt.Println(sk.Search(7))
-	fmt.Println(sk.Search(4))
-	sk.Add(5)
-	sk.Print()
-	fmt.Println(sk.Erase(6))
-	sk.Print()
-	fmt.Println(sk.Search(5))
-	//fmt.Println(sk.Search(2))
-	//fmt.Println(sk.Search(1))
 	fmt.Println()
 }
 
