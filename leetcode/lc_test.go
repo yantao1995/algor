@@ -6,7 +6,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println(largestComponentSize([]int{2, 3, 6, 7, 4, 12, 21, 39}))
+	fmt.Println(largestComponentSize([]int{99, 38, 73, 74, 44, 19, 25, 24, 57}))
 }
 
 //

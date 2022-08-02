@@ -1,6 +1,8 @@
 package leetcode
 
-import "fmt"
+import (
+	"math"
+)
 
 /*
  * @lc app=leetcode.cn id=952 lang=golang
@@ -10,15 +12,8 @@ import "fmt"
 
 // @lc code=start
 func largestComponentSize(nums []int) int {
-	maxNum := 0
-	um := []int{}       //并查集
-	sz := map[int]int{} //大小
-	for k := range nums {
-		if nums[k] > maxNum {
-			maxNum = nums[k]
-		}
-	}
-	result := 0
+	maxNum := int(math.Sqrt(1e5)) + 1
+	result := 1
 	pm := make([]bool, maxNum+1)
 	pms := []int{}
 	for i, temp := 2, 0; i < len(pm); i++ {
@@ -29,50 +24,49 @@ func largestComponentSize(nums []int) int {
 			}
 		}
 	}
-	max := func(a, b int) int {
-		if a > b {
-			return a
-		}
-		return b
-	}
+	um := map[int]map[int]bool{}
 
-	var find func(n int) int
-	find = func(n int) int {
-		if um[n] != n {
-			um[n] = find(um[n])
-		}
-		return um[n]
-	}
-	union := func(a, b int) {
-		if find(a) != find(b) {
-			return
-		}
-		sz[find(a)] += sz[find(b)]
-		um[find(b)] = um[find(a)]
-		result = max(result, sz[find(a)])
-	}
-	fmt.Println(pms)
 	temp := 0
 	for i := 0; i < len(nums); i++ {
 		temp = nums[i]
 		for j := 0; j < len(pms) && pms[j] <= temp; j++ {
 			for temp%pms[j] == 0 {
-				um[pms[j]] = i
+				if _, ok := um[j]; !ok {
+					um[j] = map[int]bool{}
+				}
+				um[j][i] = true
 				temp /= pms[j]
 			}
 		}
 		if temp > 1 {
-			um[temp] = i
+			if _, ok := um[temp]; !ok {
+				um[temp] = map[int]bool{}
+			}
+			um[temp][i] = true
 		}
 	}
-	fmt.Println(um)
-	for i := 0; i < len(nums); i++ {
-		for j := 0; j < len(nums); j++ {
-			if i != j {
-				union(nums[i], nums[j])
+
+	merge := func(i, j int) {
+		for k := range um[i] {
+			um[j][k] = true
+		}
+		if result < len(um[j]) {
+			result = len(um[j])
+		}
+	}
+	for k1 := range um {
+		for k2 := range um {
+			if k1 != k2 && len(um[k1]) > 0 && len(um[k2]) > 0 {
+				for m := range um[k1] {
+					if um[k2][m] {
+						merge(k1, k2)
+						break
+					}
+				}
 			}
 		}
 	}
+	//fmt.Println(um)
 	return result
 }
 
