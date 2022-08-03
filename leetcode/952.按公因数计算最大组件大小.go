@@ -1,6 +1,7 @@
 package leetcode
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -24,49 +25,59 @@ func largestComponentSize(nums []int) int {
 			}
 		}
 	}
-	um := map[int]map[int]bool{}
+	us, sz := make([]int, len(pms)), make([]int, len(pms))
 
+	for k := range pms {
+		us[k] = k
+	}
+
+	var find func(i int) int
+	find = func(i int) int {
+		if us[i] != i {
+			us[i] = find(us[i])
+		}
+		return us[i]
+	}
+
+	union := func(a, b int) {
+		if find(a) == find(b) {
+			return
+		}
+		sz[find(a)] += sz[find(b)]
+		us[find(b)] = find(a)
+	}
+	fmt.Println(pms)
+	fmt.Println(us)
+	fmt.Println(sz)
 	temp := 0
+	seq := []int{}
 	for i := 0; i < len(nums); i++ {
 		temp = nums[i]
+		seq = seq[:0]
 		for j := 0; j < len(pms) && pms[j] <= temp; j++ {
 			for temp%pms[j] == 0 {
-				if _, ok := um[j]; !ok {
-					um[j] = map[int]bool{}
-				}
-				um[j][i] = true
 				temp /= pms[j]
-			}
-		}
-		if temp > 1 {
-			if _, ok := um[temp]; !ok {
-				um[temp] = map[int]bool{}
-			}
-			um[temp][i] = true
-		}
-	}
-
-	merge := func(i, j int) {
-		for k := range um[i] {
-			um[j][k] = true
-		}
-		if result < len(um[j]) {
-			result = len(um[j])
-		}
-	}
-	for k1 := range um {
-		for k2 := range um {
-			if k1 != k2 && len(um[k1]) > 0 && len(um[k2]) > 0 {
-				for m := range um[k1] {
-					if um[k2][m] {
-						merge(k1, k2)
-						break
-					}
+				if len(seq) == 0 || seq[len(seq)-1] != j {
+					seq = append(seq, j)
 				}
 			}
 		}
+		fmt.Println(seq)
+		if len(seq) > 0 {
+			sz[us[seq[0]]]++
+			for j := 1; j < len(seq); j++ {
+				union(seq[0], seq[j])
+			}
+		}
 	}
-	//fmt.Println(um)
+	fmt.Println(pms)
+	fmt.Println(us)
+	fmt.Println(sz)
+	for k := range sz {
+		if sz[k] > result {
+			result = sz[k]
+		}
+	}
 	return result
 }
 
