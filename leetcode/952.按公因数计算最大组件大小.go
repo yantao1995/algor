@@ -44,7 +44,7 @@ func largestComponentSize(nums []int) int {
 			return
 		}
 		sz[find(a)] += sz[find(b)]
-		us[find(b)] = find(a)
+		us[find(b)] = us[find(a)]
 	}
 	fmt.Println(pms)
 	fmt.Println(us)
@@ -64,9 +64,9 @@ func largestComponentSize(nums []int) int {
 		}
 		fmt.Println(seq)
 		if len(seq) > 0 {
-			sz[us[seq[0]]]++
+			sz[us[find(seq[0])]]++
 			for j := 1; j < len(seq); j++ {
-				union(seq[0], seq[j])
+				union(us[seq[0]], us[seq[j]])
 			}
 		}
 	}
