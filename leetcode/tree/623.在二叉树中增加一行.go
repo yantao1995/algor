@@ -29,7 +29,6 @@ func addOneRow(root *TreeNode, val int, depth int) *TreeNode {
 			} else {
 				node.Left = &TreeNode{val, node.Left, nil}
 				node.Right = &TreeNode{val, nil, node.Right}
-				return
 			}
 		}
 	}
