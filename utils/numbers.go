@@ -94,3 +94,8 @@ func IsNRoundNumberOver(val float64, round int) bool {
 	newValue, _ := strconv.ParseFloat(fmt.Sprintf("%."+strconv.Itoa(round)+"f", val), 64)
 	return newValue != val
 }
+
+//获取随机题目
+func GetRandQuestion(rangeMax int) int {
+	return rand.New(rand.NewSource(time.Now().UnixNano())).Intn(rangeMax)
+}
