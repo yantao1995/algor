@@ -41,11 +41,11 @@ func rectangleArea(rectangles [][]int) int {
 			height += high - low
 			if innerLines[j][0] >= high {
 				low, high = innerLines[j][0], innerLines[j][1]
-			} else if innerLines[j][1] > high {
-				low = high
-				high = innerLines[j][1]
 			} else {
 				low = high
+				if innerLines[j][1] > high {
+					high = innerLines[j][1]
+				}
 			}
 		}
 		height += high - low
