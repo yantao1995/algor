@@ -6,7 +6,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println(canPartitionKSubsets([]int{4, 16, 5, 3, 10, 4, 4, 4, 10}, 3)) //true
+	fmt.Println()
 }
 
 //
