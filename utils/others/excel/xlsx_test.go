@@ -2,8 +2,10 @@ package excel
 
 import (
 	"fmt"
+	"math/rand"
 	"strconv"
 	"testing"
+	"time"
 
 	"github.com/tealeg/xlsx"
 )
@@ -69,4 +71,29 @@ func excel(name string) {
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+func TestCarNumberGenerator(t *testing.T) {
+	fmt.Printf("生成的个数:")
+	count := 0
+	fmt.Scanln(&count)
+	rd := rand.New(rand.NewSource(time.Now().Unix()))
+	xls := xlsx.NewFile()
+	source := "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	sheet1, err := xls.AddSheet("car number")
+	if err != nil {
+		panic(err)
+	}
+	ls := int64(len(source))
+	getRandStr := func() string {
+		str := "苏U"
+		for i := 0; i < 5; i++ {
+			str += string(source[rd.Int63n(ls)])
+		}
+		return str
+	}
+	for i := 0; i < count; i++ {
+		sheet1.AddRow().AddCell().SetString(getRandStr())
+	}
+	xls.Save("./车牌号生成.xlsx")
 }
