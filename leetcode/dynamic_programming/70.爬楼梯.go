@@ -28,15 +28,15 @@ package leetcode
 // }
 
 func climbStairs(n int) int {
-	memo := make([]int, n+1)
+	dp := make([]int, n+1)
 	for i := 1; i <= n; i++ {
 		if i <= 3 {
-			memo[i] = i
+			dp[i] = i
 		} else {
-			memo[i] = memo[i-1] + memo[i-2]
+			dp[i] = dp[i-1] + dp[i-2]
 		}
 	}
-	return memo[n]
+	return dp[n]
 }
 
 // @lc code=end
