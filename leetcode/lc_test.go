@@ -6,7 +6,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println()
+	fmt.Println(sumSubarrayMins([]int{11, 81, 94, 43, 3}))
 }
 
 //
