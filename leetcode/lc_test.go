@@ -2,11 +2,29 @@ package leetcode
 
 import (
 	"fmt"
+	"strconv"
+	"strings"
 	"testing"
 )
 
 func TestFunc(t *testing.T) {
 	fmt.Println()
+}
+
+// str 用例转 二维int数组
+func str2Slice2(str string) [][]int {
+	slice := strings.Split(str[2:len(str)-2], "],[")
+	result := [][]int{}
+	for _, v := range slice {
+		sli2 := strings.Split(v, ",")
+		temp := []int{}
+		for _, v2 := range sli2 {
+			v2Int, _ := strconv.Atoi(v2)
+			temp = append(temp, v2Int)
+		}
+		result = append(result, temp)
+	}
+	return result
 }
 
 //
