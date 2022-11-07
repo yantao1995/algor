@@ -11,7 +11,18 @@ func TestFunc(t *testing.T) {
 	fmt.Println()
 }
 
-// str 用例转 二维int数组
+// str 用例  转 一维int数组
+func str2Slice(str string) []int {
+	slice := strings.Split(str[1:len(str)-1], "],[")
+	result := []int{}
+	for _, v := range slice {
+		i, _ := strconv.Atoi(v)
+		result = append(result, i)
+	}
+	return result
+}
+
+// str 用例  转 二维int数组
 func str2Slice2(str string) [][]int {
 	slice := strings.Split(str[2:len(str)-2], "],[")
 	result := [][]int{}

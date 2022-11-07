@@ -2,8 +2,11 @@ package excel
 
 import (
 	"fmt"
+	"io/ioutil"
 	"math/rand"
+	"os"
 	"strconv"
+	"strings"
 	"testing"
 	"time"
 
@@ -20,16 +23,16 @@ func TestChangeColor(t *testing.T) {
 }
 func excel(name string) {
 	copyName := name + "_修改后的.xlsx"
-	xlsxfile, err := xlsx.OpenFile(name + ".xlsx")
+	xlsxFile, err := xlsx.OpenFile(name + ".xlsx")
 	if err != nil {
 		fmt.Println("打开文件失败", err)
 		return
 	}
-	if len(xlsxfile.Sheets) < 1 {
+	if len(xlsxFile.Sheets) < 1 {
 		fmt.Println("未找到sheet1")
 		return
 	}
-	sheet1 := xlsxfile.Sheets[0]
+	sheet1 := xlsxFile.Sheets[0]
 	style1 := xlsx.NewStyle()
 	style2 := xlsx.NewStyle()
 	style3 := xlsx.NewStyle()
@@ -67,7 +70,7 @@ func excel(name string) {
 			}
 		}
 	}
-	err = xlsxfile.Save(copyName)
+	err = xlsxFile.Save(copyName)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -96,4 +99,41 @@ func TestCarNumberGenerator(t *testing.T) {
 		sheet1.AddRow().AddCell().SetString(getRandStr())
 	}
 	xls.Save("./车牌号生成.xlsx")
+}
+
+func TestModifyCell(t *testing.T) {
+	files, err := ioutil.ReadDir("./")
+	if err != nil {
+		panic(err)
+	}
+	for k := range files {
+		if strings.Contains(files[k].Name(), ".xlsx") {
+			xlsxFile, err := xlsx.OpenFile(files[k].Name())
+			if err != nil {
+				panic("打开文件失败:" + err.Error())
+			}
+			sheet0 := xlsxFile.Sheets[0]
+			sheet0.Rows[2].Cells[1].SetString("男")
+			xlsxFile.Save("./" + files[k].Name())
+		}
+	}
+}
+
+func TestModifyFileName(t *testing.T) {
+	fmt.Printf("输入文件名中需要被替换的文字:")
+	source := ""
+	fmt.Scanln(&source)
+	fmt.Printf("输入文件名中替换的文字:")
+	target := ""
+	fmt.Scanln(&target)
+	files, err := ioutil.ReadDir("./")
+	if err != nil {
+		panic(err)
+	}
+	for k := range files {
+		if strings.Contains(files[k].Name(), source) {
+			targetName := strings.ReplaceAll(files[k].Name(), source, target)
+			os.Rename("./"+files[k].Name(), targetName)
+		}
+	}
 }
