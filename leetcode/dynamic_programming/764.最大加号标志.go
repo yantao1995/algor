@@ -1,7 +1,5 @@
 package leetcode
 
-import "fmt"
-
 /*
  * @lc app=leetcode.cn id=764 lang=golang
  *
@@ -25,23 +23,36 @@ func orderOfLargestPlusSign(n int, mines [][]int) int {
 	}
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
-			temp[0], temp[1] = i, j
 			dpLeft[i][j] = 0
 			dpRight[i][n-j-1] = 0
 			dpUp[i][j] = 0
 			dpDown[n-i-1][j] = 0
+
+			temp[0], temp[1] = i, j
 			if !m[temp] {
-				dpLeft[i][j] = 1
-				dpRight[i][n-j-1] = 1
 				dpUp[i][j] = 1
-				dpDown[n-i-1][j] = 1
+				dpLeft[i][j] = 1
 				if i > 0 {
 					dpUp[i][j] += dpUp[i-1][j]
-					dpDown[n-i-2][j] += dpDown[n-i-1][j]
 				}
 				if j > 0 {
 					dpLeft[i][j] += dpLeft[i][j-1]
-					dpRight[i][n-j-2] += dpRight[i][n-j-1]
+				}
+			}
+
+			temp[0], temp[1] = n-i-1, j
+			if !m[temp] {
+				dpDown[n-i-1][j] = 1
+				if i > 0 {
+					dpDown[n-i-1][j] += dpDown[n-i][j]
+				}
+			}
+
+			temp[0], temp[1] = i, n-j-1
+			if !m[temp] {
+				dpRight[i][n-j-1] = 1
+				if j > 0 {
+					dpRight[i][n-j-1] += dpRight[i][n-j]
 				}
 			}
 		}
@@ -62,31 +73,20 @@ func orderOfLargestPlusSign(n int, mines [][]int) int {
 		return b
 	}
 	result := 0
-	for i := 0; i < n; i++ {
-		for j := 0; j < n; j++ {
-			min := mins(dpUp[i][j], dpDown[i][j], dpLeft[i][j], dpRight[i][j])
-			current := 0
-			temp[0], temp[1] = i, j
-			if !m[temp] {
-				current = 1
-			}
-			//fmt.Print(" ", min, "[", dpUp[i][j], dpDown[i][j], dpLeft[i][j], dpRight[i][j], "]", current)
-			fmt.Print(" ", current)
-			result = max(result, min)
-		}
-		fmt.Println()
-	}
 
 	for i := 0; i < n; i++ {
 		for j := 0; j < n; j++ {
-			min := mins(dpUp[i][j], dpDown[i][j], dpLeft[i][j], dpRight[i][j])
-			fmt.Print(" ", min, "[", dpUp[i][j], dpDown[i][j], dpLeft[i][j], dpRight[i][j], "]")
-			result = max(result, min)
+			result = max(result, mins(dpUp[i][j], dpDown[i][j], dpLeft[i][j], dpRight[i][j]))
 		}
-		fmt.Println()
 	}
 
 	return result
 }
 
 // @lc code=end
+
+/*
+	动态规划 dp[i]：到当前点的最大连续长度
+	把矩形看成是4个方向上的dp数组，记录一个点的 上下左右 4个方向到当前的最大长度
+	然后4个方向取最小的一个值就是当前的阶数
+*/
