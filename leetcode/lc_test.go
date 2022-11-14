@@ -8,7 +8,10 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println()
+	sli := "[[0,1],[1,0],[1,1]]"
+	fmt.Println(orderOfLargestPlusSign(2, str2Slice2(sli)))
+	// sli := "[[0,2],[0,3],[2,2],[2,4],[4,0],[4,1],[4,2],[4,4]]"
+	// fmt.Println(orderOfLargestPlusSign(5, str2Slice2(sli)))
 }
 
 // str 用例  转 一维int数组
