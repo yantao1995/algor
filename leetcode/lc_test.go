@@ -8,7 +8,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println()
+	fmt.Println(soupServings(0))
 }
 
 // str 用例  转 一维int数组
