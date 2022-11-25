@@ -1,6 +1,7 @@
 package leetcode
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -11,14 +12,17 @@ func TestFunc(t *testing.T) {
 	fmt.Println()
 }
 
+// str 用例  转 一维 string 数组
+func str2SliceString(str string) []string {
+	result := []string{}
+	json.Unmarshal([]byte(str), &result)
+	return result
+}
+
 // str 用例  转 一维int数组
-func str2Slice(str string) []int {
-	slice := strings.Split(str[1:len(str)-1], "],[")
+func str2SliceInt(str string) []int {
 	result := []int{}
-	for _, v := range slice {
-		i, _ := strconv.Atoi(v)
-		result = append(result, i)
-	}
+	json.Unmarshal([]byte(str), &result)
 	return result
 }
 
