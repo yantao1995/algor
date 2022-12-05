@@ -9,7 +9,8 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println()
+	str := `[[2,4],[2,5],[3,1],[3,2],[3,7],[3,1],[4,4],[1,3],[5,2]]`
+	fmt.Println(boxDelivering(str2Slice2(str), 5, 5, 7))
 }
 
 // str 用例  转 一维 string 数组
