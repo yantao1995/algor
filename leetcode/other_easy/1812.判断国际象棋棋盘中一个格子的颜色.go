@@ -14,5 +14,5 @@ func squareIsWhite(coordinates string) bool {
 // @lc code=end
 
 /*
-	直接观察棋盘，行与列对2取余不相等相等的为白色。
+	直接观察棋盘，行与列对2取余不相等的为白色。
 */
