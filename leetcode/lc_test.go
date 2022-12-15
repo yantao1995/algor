@@ -27,7 +27,7 @@ func str2SliceInt(str string) []int {
 }
 
 // str 用例  转 二维int数组
-func str2Slice2(str string) [][]int {
+func str2SliceInt2(str string) [][]int {
 	slice := strings.Split(str[2:len(str)-2], "],[")
 	result := [][]int{}
 	for _, v := range slice {
