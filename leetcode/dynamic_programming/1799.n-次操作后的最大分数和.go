@@ -1,8 +1,6 @@
 package leetcode
 
-import (
-	"sort"
-)
+import "math/bits"
 
 /*
  * @lc app=leetcode.cn id=1799 lang=golang
@@ -19,6 +17,12 @@ func maxScore(nums []int) int {
 		}
 		return b
 	}
+	max := func(a, b int) int {
+		if a > b {
+			return a
+		}
+		return b
+	}
 	memo := make([][]int, len(nums))
 	for i := 0; i < len(nums); i++ {
 		memo[i] = make([]int, len(nums))
@@ -26,44 +30,28 @@ func maxScore(nums []int) int {
 			memo[i][j] = gcd(nums[i], nums[j])
 		}
 	}
-	result := 0
-	route := map[int]bool{}
-	var backtrace func(index int, scores, indexs []int)
-	backtrace = func(index int, scores, indexs []int) {
-		if len(scores)*2 == len(nums) {
-			sort.Ints(scores)
-			total := 0
-			for i := 0; i < len(scores); i++ {
-				total += (i + 1) * scores[i]
-			}
-			if total > result {
-				result = total
-			}
-			return
-		}
-		for ; index < len(nums); index++ {
-			if !route[index] {
-				route[index] = true
-				break
+	dp := make([]int, 1<<len(nums))
+	for k := 0; k < 1<<len(nums); k++ {
+		cnt := bits.OnesCount(uint(k))
+		if cnt%2 == 0 {
+			for i := 0; i < len(nums); i++ {
+				if k>>i&1 == 1 {
+					for j := i + 1; j < len(nums); j++ {
+						if k>>j&1 == 1 {
+							dp[k] = max(dp[k], dp[k^(1<<i)^(1<<j)]+cnt/2*memo[i][j])
+						}
+					}
+				}
 			}
 		}
-		for j := index + 1; j < len(nums); j++ {
-			if !route[j] {
-				route[j] = true
-				backtrace(index+1, append(scores, memo[index][j]), append(indexs, index, j))
-				route[j] = false
-			}
-		}
-		route[index] = false
 	}
-	backtrace(0, nil, nil)
-	return result
+	return dp[len(dp)-1]
 }
 
 // @lc code=end
 
 /*
-
+动态规划，参考官方题解
 
 回溯 超时
 Time Limit Exceeded
