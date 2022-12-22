@@ -9,7 +9,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println()
+	fmt.Println(maxScore([]int{1231, 521, 2539, 1213, 2699, 1667, 1361, 1231, 521, 2539, 1213, 2699, 1667, 1361}))
 }
 
 // str 用例  转 一维 string 数组
