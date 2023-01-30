@@ -38,6 +38,37 @@ func str2SliceInt2(str string) [][]int {
 	return result
 }
 
+// str 用例  转 单链表
+func str2ListNode(str string) *ListNode {
+	nodes := str2SliceInt(str)
+	var listNode, h *ListNode
+	for i, node := range nodes {
+		nd := &ListNode{
+			Val:  node,
+			Next: nil,
+		}
+		if i == 0 {
+			listNode = nd
+			h = listNode
+		}
+		h.Next = nd
+		h = h.Next
+	}
+	return listNode
+}
+
+// 打印单链表
+func printListNode(list *ListNode) {
+	fmt.Printf("%s", "[")
+	for h := list; h != nil; h = h.Next {
+		fmt.Printf("%d", h.Val)
+		if h.Next != nil {
+			fmt.Printf(",")
+		}
+	}
+	fmt.Println("]")
+}
+
 //
 
 // func TestAlgor() {
