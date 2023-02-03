@@ -69,6 +69,61 @@ func printListNode(list *ListNode) {
 	fmt.Println("]")
 }
 
+// str 用例  转 完全二叉树
+func str2FullTreeNode(str string) *TreeNode {
+	nodes := str2SliceInt(str)
+	if len(nodes) == 0 {
+		return nil
+	}
+	root := &TreeNode{
+		Val:   nodes[0],
+		Left:  nil,
+		Right: nil,
+	}
+	queue := []*TreeNode{root}
+	nodeIndex := 1
+	for i := 0; i < len(queue) && nodeIndex < len(nodes); i++ {
+		if nodeIndex < len(nodes) {
+			queue[i].Left = &TreeNode{
+				Val:   nodes[nodeIndex],
+				Left:  nil,
+				Right: nil,
+			}
+			queue = append(queue, queue[i].Left)
+			nodeIndex++
+		}
+		if nodeIndex < len(nodes) {
+			queue[i].Right = &TreeNode{
+				Val:   nodes[nodeIndex],
+				Left:  nil,
+				Right: nil,
+			}
+			queue = append(queue, queue[i].Right)
+			nodeIndex++
+		}
+	}
+	return root
+}
+
+// 打印 完全二叉树
+func printFullTreeNode(root *TreeNode) {
+	fmt.Printf("%s", "[")
+	queue := []*TreeNode{root}
+	for i := 0; i < len(queue); i++ {
+		fmt.Printf("%d", queue[i].Val)
+		if queue[i].Left != nil {
+			queue = append(queue, queue[i].Left)
+		}
+		if queue[i].Right != nil {
+			queue = append(queue, queue[i].Right)
+		}
+		if i+1 < len(queue) {
+			fmt.Printf(",")
+		}
+	}
+	fmt.Println("]")
+}
+
 //
 
 // func TestAlgor() {
