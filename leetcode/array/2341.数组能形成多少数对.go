@@ -12,7 +12,7 @@ func numberOfPairs(nums []int) []int {
 	m := map[int]int{}
 	for i := 0; i < len(nums); i++ {
 		m[nums[i]]++
-		if m[nums[i]] > 0 && m[nums[i]]&1 == 0 {
+		if m[nums[i]]&1 == 0 {
 			result[0]++
 			result[1] -= 2
 		}
