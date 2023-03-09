@@ -6,72 +6,69 @@ import (
 )
 
 func main() {
-	s := "11+22*32+40*(60/30+8)/20*(2*(5+15))+{30*[25*(3+12)]}+(3+2*20)+20"
+	s := "11-{22+(10-5)}"
 	// 715 +800 +11250 +43 + 20 = 12828
+	fmt.Println(rotationCalc(s)) // 12828.0000000000
+}
 
-	slice := []string{}
+func rotationCalc(s string) string {
+	stack := newStack()
 	for i := 0; i < len(s); i++ {
-		if s[i] >= '0' && s[i] <= '9' {
+		switch s[i] {
+		case '(', '[', '{', '+', '-', '*', '/': //可以直接入栈的符号
+			stack.push(string(s[i])) //转换成 string  入栈
+		case ')', ']', '}': //反括号 需要运算得到括号内的结果
+			for {
+				val := stack.pop()     //括号前一个值
+				operate := stack.pop() //运算符
+				if operate == "(" || operate == "[" || operate == "{" {
+					stack.push(val)
+					break
+				}
+				last := stack.pop() //上一个值
+				current := calc(last, val, operate)
+				stack.push(current) //当前值入栈
+			}
+
+		default: //数字
 			j := i + 1
 			for j < len(s) && s[j] >= '0' && s[j] <= '9' {
 				j++
 			}
-			slice = append(slice, s[i:j])
-			i = j - 1
-		} else {
-			slice = append(slice, string(s[i]))
+			numStr := s[i:j] // 这个字符串是数字
+			i = j - 1        //移动到数字的下一个索引
+			stack.push(numStr)
 		}
-	}
-	fmt.Println(slice)
-	fmt.Println(rotationCalc(slice)) // 12828.0000000000
-}
-
-var level = map[string]int{
-	"+": 1,
-	"-": 1,
-	"*": 2,
-	"/": 2,
-	"(": 3,
-	")": 3,
-	"[": 4,
-	"]": 4,
-	"{": 5,
-	"}": 5,
-}
-
-func rotationCalc(slice []string) string {
-	fmt.Println(slice)
-	if len(slice) == 0 {
-		return ""
-	}
-	if level[slice[0]] > 2 { //括号
-		for j := 1; j < len(slice); j++ {
-			if level[slice[j]] == level[slice[0]] { //优先级一样，括号配对了
-				fmt.Println("括号: ", rotationCalc(slice[1:j]), "__", rotationCalc(slice[j+1:]))
-				return calc(rotationCalc(slice[1:j]), slice[j], rotationCalc(slice[j+1:]))
+		//处理当前栈
+		for stack.len() > 2 { //a值  b值 运算符  数量大于3 可以判断操作处理  保证最后只剩一个元素
+			stackLen := stack.len()
+			current := stack.pop()
+			if current != "+" && current != "-" && current != "*" && current != "/" &&
+				current != "(" && current != "[" && current != "{" { //当前不是运算符或特殊符号
+				operate := stack.pop()
+				if operate == "*" || operate == "/" || //第二个是运算符才计算
+					((operate == "+" || operate == "-") && i+1 < len(s) && (s[i+1] == '+' || s[i+1] == '-')) ||
+					i+1 >= len(s) {
+					last := stack.pop()
+					current = calc(last, current, operate)
+				} else {
+					stack.push(operate) //归还运算符
+				}
+			} else { //当前是运算符或特殊符号
+				stack.push(current)
+				break
+			}
+			stack.push(current)
+			if stackLen == stack.len() { //当前栈无需处理就退出
+				break
 			}
 		}
-	} else if len(slice) > 1 { //是数字
-		if len(slice) == 3 || (len(slice) > 3 && level[slice[1]] >= level[slice[3]]) {
-			temp := calc(slice[0], slice[1], slice[2])
-			if len(slice) > 3 {
-				return calc(temp, slice[3], rotationCalc(slice[4:]))
-			}
-			return temp
-		} else {
-			slice[2] = calc(slice[0], slice[1], slice[2])
-			return calc(slice[0], slice[1], rotationCalc(slice[2:]))
-
-		}
 	}
-	return slice[0]
+	return stack.pop()
 }
 
 // 参数分别为 第一个数，第二个数，运算符
-func calc(a, operate, b string) string {
-	if b == "" {
-		return a
-	}
+func calc(a, b, operate string) string {
 	aFloat, _ := strconv.ParseFloat(a, 64) //转换成 float
 	bFloat, _ := strconv.ParseFloat(b, 64)
 	result := 0.0
@@ -86,4 +83,55 @@ func calc(a, operate, b string) string {
 		result = aFloat / bFloat
 	}
 	return strconv.FormatFloat(result, 'f', 10, 64) //转换成字符串
+}
+
+type stack struct {
+	data []string //用数组表示栈   数组末尾的位置为栈顶
+	ptr  int      //栈顶指针 指向栈顶元素
+}
+
+func newStack() *stack {
+	return &stack{
+		data: []string{},
+		ptr:  -1,
+	}
+}
+
+// 入栈
+func (s *stack) push(x string) {
+	s.ptr++
+	if len(s.data) < s.ptr+1 {
+		s.data = append(s.data, x)
+	}
+	s.data[s.ptr] = x
+}
+
+// 出栈
+func (s *stack) pop() string {
+	if s.len() == 0 {
+		return ""
+	}
+	val := s.data[s.ptr]
+	s.data = s.data[:s.ptr]
+	s.ptr--
+
+	return val
+}
+
+// 获取栈顶元素
+func (s *stack) empty() bool {
+	return s.ptr == -1
+}
+
+// 获取栈顶元素
+func (s *stack) top() string {
+	if s.empty() {
+		return ""
+	}
+	return s.data[s.ptr]
+}
+
+// 获取栈的元素个数
+func (s *stack) len() int {
+	return s.ptr + 1
 }
