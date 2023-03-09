@@ -15,6 +15,8 @@
   - type_create：创建型模式
   - type_struct: 结构型模式
 
+- problems：一些其他算法实现
+
 - uitls： 写的一些小函数，提交时间越早，写的越拉稀
 
 - wiki：一些现实场景问题的设计思路
