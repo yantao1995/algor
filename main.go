@@ -1,32 +1,23 @@
 package main
 
 import (
-	"C"
-	"image"
-	"image/color"
-	"os"
-
-	"github.com/fogleman/gg"
+	"fmt"
+	"math/rand"
+	"time"
 )
 
 func main() {
-
+	test2()
 }
 
-//export CutAndFill
-func CutAndFill(inPath, outPath string, width, height int) {
-	in, err := os.Open(inPath)
-	if err != nil {
-		panic(err)
-	}
-	img, _, err := image.Decode(in)
-	if err != nil {
-		panic(err)
-	}
+func test() {
+	fmt.Println(getRandQuestion())
+}
 
-	dc := gg.NewContext(width, height)
-	dc.SetColor(color.Transparent)
-	dc.Clear()
-	dc.DrawImage(img, 0, 0)
-	dc.SavePNG(outPath)
+func getRandQuestion() int {
+	return rand.New(rand.NewSource(time.Now().UnixNano())).Intn(2088)
+}
+
+func test2() {
+
 }
