@@ -22,6 +22,9 @@ func main() {
 	// fmt.Println(result)
 }
 
+/*
+	图片剪裁和填充,传入base64,宽，高，返回指定大小的图片的base64
+*/
 //export CutAndFill
 func CutAndFill(in *C.char, width, height int) *C.char {
 	inBase64 := C.GoString(in)
