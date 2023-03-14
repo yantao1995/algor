@@ -82,6 +82,11 @@ extern "C" {
 
 
 /*
+	图片剪裁和填充,传入base64,宽，高，返回指定大小的YUV图片的base64
+*/
+extern __declspec(dllexport) char* CutAndFillYuv(char* in, GoInt width, GoInt height);
+
+/*
 	图片剪裁和填充,传入base64,宽，高，返回指定大小的图片的base64
 */
 extern __declspec(dllexport) char* CutAndFill(char* in, GoInt width, GoInt height);
