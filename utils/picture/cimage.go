@@ -1,5 +1,9 @@
 package main
 
+/*
+#include <stdio.h>
+#include <stdlib.h>
+*/
 import "C"
 import (
 	"image"
@@ -19,7 +23,8 @@ func main() {
 }
 
 //export CutAndFill
-func CutAndFill(inBase64 string, width, height int) string {
+func CutAndFill(in *C.char, width, height int) *C.char {
+	inBase64 := C.GoString(in)
 	bts, err := base64.StdEncoding.DecodeString(inBase64)
 	if err != nil {
 		panic("base64 Decode image:" + err.Error())
@@ -38,5 +43,6 @@ func CutAndFill(inBase64 string, width, height int) string {
 	if err != nil {
 		panic("image Encode image:" + err.Error())
 	}
-	return base64.StdEncoding.EncodeToString(bf.Bytes())
+	out := base64.StdEncoding.EncodeToString(bf.Bytes())
+	return C.CString(out)
 }
