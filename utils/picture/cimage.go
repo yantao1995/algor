@@ -6,14 +6,16 @@ package main
 */
 import "C"
 import (
+	"bufio"
 	"fmt"
 	"image"
 	"image/color"
+	"image/jpeg"
 	"image/png"
+	"os"
 
 	"bytes"
 	"encoding/base64"
-	"encoding/binary"
 
 	"github.com/fogleman/gg"
 )
@@ -37,42 +39,40 @@ func CutAndFillYuv(in *C.char, width, height int) *C.char {
 		panic("base64 Decode image:" + err.Error())
 	}
 	inBuf := bytes.NewBuffer(bts)
-	img, _, err := image.Decode(inBuf)
+	original, _, err := image.Decode(inBuf)
 	if err != nil {
 		panic("image Decode image:" + err.Error())
 	}
 	//
-	// of, err := os.Create("out.yuv")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// defer of.Close()
-	// w := bufio.NewWriter(of)
+	of, err := os.Create("out.yuv")
+	if err != nil {
+		panic(err)
+	}
+	defer of.Close()
+	w := bufio.NewWriter(of)
 	// image 转换成 yuv
-	buf := new(bytes.Buffer)
-	yuv := make([]uint8, 4, 4)
-	for y := img.Bounds().Min.Y; y < img.Bounds().Max.Y; y++ {
-		for x := img.Bounds().Min.X; x < img.Bounds().Max.X; x += 2 {
-			r1, g1, b1, _ := img.At(x, y).RGBA()
-			r2, g2, b2, _ := img.At(x+1, y).RGBA()
-			y1, u, v := color.RGBToYCbCr(uint8(r1), uint8(g1), uint8(b1))
-			y2, _, _ := color.RGBToYCbCr(uint8(r2), uint8(g2), uint8(b2))
-			yuv[0] = u
-			yuv[1] = y1
-			yuv[2] = v
-			yuv[3] = y2
-			err = binary.Write(buf, binary.LittleEndian, yuv)
-			if err != nil {
-				panic(err)
-			}
+	bounds := original.Bounds()
+	converted := image.NewYCbCr(bounds, image.YCbCrSubsampleRatio420)
+
+	for row := 0; row < bounds.Max.Y; row++ {
+		for col := 0; col < bounds.Max.X; col++ {
+			r, g, b, _ := original.At(col, row).RGBA()
+			y, cb, cr := color.RGBToYCbCr(uint8(r), uint8(g), uint8(b))
+
+			converted.Y[converted.YOffset(col, row)] = y
+			converted.Cb[converted.COffset(col, row)] = cb
+			converted.Cr[converted.COffset(col, row)] = cr
 		}
 	}
+	buf2 := bytes.Buffer{}
+	jpeg.Encode(&buf2, converted, &jpeg.Options{Quality: 100})
+
 	//
-	// _, err = w.Write(buf.Bytes())
-	// if err != nil {
-	// 	panic(err)
-	// }
-	out := base64.StdEncoding.EncodeToString(buf.Bytes())
+	_, err = w.Write(buf2.Bytes())
+	if err != nil {
+		panic(err)
+	}
+	out := base64.StdEncoding.EncodeToString(buf2.Bytes())
 	return C.CString(out)
 }
 
