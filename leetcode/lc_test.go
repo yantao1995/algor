@@ -7,7 +7,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println()
+	fmt.Println(countVowelStrings(2))
 }
 
 // str 用例  转 一维 string 数组
