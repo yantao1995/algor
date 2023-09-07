@@ -47,4 +47,6 @@ func MiningCrash() {
 			break
 		}
 	}
+	i := ""
+	fmt.Scanln(&i)
 }
