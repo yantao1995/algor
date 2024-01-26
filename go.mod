@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/ethereum/go-ethereum v1.12.2
 	github.com/fogleman/gg v1.3.0
+	github.com/shopspring/decimal v1.3.1
 	github.com/tealeg/xlsx v1.0.5
 )
 

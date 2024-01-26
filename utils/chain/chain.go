@@ -20,7 +20,7 @@ func MiningCrash() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	for {
+	for i := 0; ; i++ {
 		time.Sleep(time.Millisecond * 10)
 		privateKey, err := crypto.GenerateKey()
 		if err != nil {
@@ -40,13 +40,18 @@ func MiningCrash() {
 		if err != nil {
 			log.Fatal(err)
 		}
+		fmt.Println()
+		fmt.Println("尝试次数:", i)
+		fmt.Println("私钥:", hexutil.Encode(privateKeyBytes)[2:])
+		fmt.Println("地址:", address)
+		fmt.Println("余额:", balance)
 		if balance.Cmp(big.NewInt(0)) > 0 {
-			fmt.Println("私钥:", hexutil.Encode(privateKeyBytes)[2:])
-			fmt.Println("地址:", address)
-			fmt.Println("余额:", balance)
 			break
 		}
+		fmt.Printf("\033[%dA\033[K", 5)
 	}
-	i := ""
-	fmt.Scanln(&i)
+
+	fmt.Println("按任意键退出")
+	j := ""
+	fmt.Scanln(&j)
 }
