@@ -41,7 +41,7 @@ func MiningCrash() {
 			log.Fatal(err)
 		}
 		fmt.Println()
-		fmt.Println("尝试次数:", i)
+		fmt.Println("次数:", i)
 		fmt.Println("私钥:", hexutil.Encode(privateKeyBytes)[2:])
 		fmt.Println("地址:", address)
 		fmt.Println("余额:", balance)
