@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"math/big"
-	"time"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
@@ -20,25 +19,29 @@ func MiningCrash() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	for i := 0; ; i++ {
-		time.Sleep(time.Millisecond * 10)
+	i := 0
+lab:
+	fmt.Println("=================")
+	for ; ; i++ {
 		privateKey, err := crypto.GenerateKey()
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
+			goto lab
 		}
 		privateKeyBytes := crypto.FromECDSA(privateKey)
 		publicKey := privateKey.Public()
 		publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
 		if !ok {
-			log.Fatal("cannot assert type: publicKey is not of type *ecdsa.PublicKey")
+			fmt.Println("cannot assert type: publicKey is not of type *ecdsa.PublicKey")
+			goto lab
 		}
 		//publicKeyBytes := crypto.FromECDSAPub(publicKeyECDSA)
 		//fmt.Println(hexutil.Encode(publicKeyBytes)[4:])
 		address := crypto.PubkeyToAddress(*publicKeyECDSA).Hex()
-
 		balance, err := client.BalanceAt(context.Background(), common.HexToAddress(address), nil)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
+			goto lab
 		}
 		fmt.Println()
 		fmt.Println("次数:", i)
