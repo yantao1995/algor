@@ -1,7 +1,6 @@
 package main
 
 import (
-	"algor/utils/chain"
 	"fmt"
 	"math/rand"
 	"time"
@@ -20,5 +19,4 @@ func getRandQuestion() int {
 }
 
 func test2() {
-	chain.MiningCrash()
 }
