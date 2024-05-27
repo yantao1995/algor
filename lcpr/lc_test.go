@@ -39,11 +39,11 @@ func TestFuncRenameChinese(t *testing.T) {
 				for bScanner.Scan() {
 					line := bScanner.Text()
 					if strings.Contains(line, signStr) {
-						pairs = append(pairs, [2]string{currentPath,
-							path + "/" +
-								nameSplit[0] + "." +
-								line[strings.Index(line, signStr)+len(signStr):] +
-								".go"})
+						zhName := line[strings.Index(line, signStr)+len(signStr):]
+						if nameSplit[1] != zhName {
+							pairs = append(pairs, [2]string{currentPath,
+								path + "/" + nameSplit[0] + "." + zhName + ".go"})
+						}
 						break
 					}
 				}
