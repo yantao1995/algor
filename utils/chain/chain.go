@@ -13,7 +13,7 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
-// 碰撞
+// 私钥碰撞测试
 func MiningCrash() {
 	client, err := ethclient.Dial("https://cloudflare-eth.com")
 	if err != nil {
