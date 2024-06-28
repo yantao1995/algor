@@ -19,31 +19,16 @@ func maxScore(nums []int, x int) int64 {
 		return b
 	}
 	maxOdd, maxEven := nums[0], nums[0]
-	newMaxOdd, newMaxEven := -x, -x
-	oddFlag, evenFlag := nums[0]&1 == 1, nums[0]&1 == 0
+	if nums[0]&1 == 0 { //偶数
+		maxOdd -= x
+	} else {
+		maxEven -= x
+	}
 	for i := 1; i < len(nums); i++ {
-		if nums[i]&1 == 1 { //奇数
-			newMaxOdd = -x
-			if oddFlag { //与上个最大的odd是同符号
-				newMaxOdd = max(maxOdd+nums[i], maxEven+nums[i]-x)
-			} else {
-				newMaxOdd = max(maxEven+nums[i], maxOdd+nums[i]-x)
-			}
-			if newMaxOdd > maxOdd {
-				maxOdd = newMaxOdd
-				oddFlag = nums[i]&1 == 1
-			}
+		if nums[i]&1 == 0 { //偶数
+			maxEven = max(maxEven+nums[i], maxOdd+nums[i]-x)
 		} else {
-			newMaxEven = -x
-			if evenFlag { //与上个最大的even是同符号
-				newMaxEven = max(maxEven+nums[i], maxOdd+nums[i]-x)
-			} else {
-				newMaxEven = max(maxOdd+nums[i], maxEven+nums[i]-x)
-			}
-			if newMaxEven > maxEven {
-				maxEven = newMaxEven
-				evenFlag = nums[i]&1 == 0
-			}
+			maxOdd = max(maxOdd+nums[i], maxEven+nums[i]-x)
 		}
 	}
 	return int64(max(maxOdd, maxEven))

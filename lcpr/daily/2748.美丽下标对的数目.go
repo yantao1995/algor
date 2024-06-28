@@ -1,5 +1,7 @@
 package lcpr
 
+import "fmt"
+
 /*
  * @lc app=leetcode.cn id=2748 lang=golang
  * @lcpr version=30204
@@ -21,12 +23,14 @@ func countBeautifulPairs(nums []int) int {
 	tail := make([]int, len(nums))
 	for k := range nums {
 		tail[k] = nums[k] % 10
-		for nums[k] > 10 {
+		for nums[k] >= 10 {
 			nums[k] /= 10
 		}
 	}
+	fmt.Println(nums)
+	fmt.Println(tail)
 	result := 0
-	for i := 0; i < len(nums); i++ {
+	for i := 0; i < len(nums)-1; i++ {
 		for j := i + 1; j < len(nums); j++ {
 			if nums[i] == 1 || tail[j] == 1 || gcd(nums[i], tail[j]) == 1 {
 				result++
@@ -47,4 +51,8 @@ func countBeautifulPairs(nums []int) int {
 // [11,21,12]\n
 // @lcpr case=end
 
+*/
+
+/*
+	直接按规则运算即可
 */

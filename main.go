@@ -19,4 +19,11 @@ func getRandQuestion() int {
 }
 
 func test2() {
+	gcd := func(a, b int) int {
+		for a != 0 {
+			a, b = b%a, a
+		}
+		return b
+	}
+	fmt.Println(gcd(2, 2))
 }
