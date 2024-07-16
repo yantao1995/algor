@@ -1,7 +1,5 @@
 package lcpr
 
-import "fmt"
-
 /*
  * @lc app=leetcode.cn id=2972 lang=golang
  * @lcpr version=30204
@@ -14,19 +12,28 @@ import "fmt"
 // @lcpr-template-end
 // @lc code=start
 func incremovableSubarrayCount(nums []int) int64 {
-	total := len(nums)
-	pre, suf := 0, len(nums)-1
+	total := 0
+	pre := 0
 	for i := 1; i < len(nums); i++ {
 		if nums[i] <= nums[i-1] {
 			break
 		}
+		pre = i
 	}
-	for i := len(nums) - 1; i > 0; i-- {
-		if nums[i] <= nums[i-1] {
+	if pre+1 == len(nums) {
+		return int64(len(nums) * (len(nums) + 1) / 2)
+	}
+	for suf := len(nums) - 1; suf >= 0; suf-- {
+		if suf < len(nums)-1 && nums[suf] >= nums[suf+1] {
 			break
 		}
+		pre1 := pre
+		for pre1 >= 0 && nums[pre1] < nums[suf] {
+			total += pre1 + 2
+			pre1--
+		}
+		total++
 	}
-	fmt.Println(pre, suf)
 	return int64(total)
 }
 
