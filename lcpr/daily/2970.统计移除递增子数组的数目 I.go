@@ -11,33 +11,33 @@ package lcpr
 
 // @lcpr-template-end
 // @lc code=start
-func incremovableSubarrayCount(nums []int) int {
-	total := 0
-	isIncrease := func(start, end int) bool {
-		gap := 1
-		last := -1
-		for i := 0; i < len(nums) && gap < 2; i++ {
-			if i == start {
-				i = end
-				continue
-			}
-			if nums[i] > last {
-				last = nums[i]
-			} else {
-				gap++
-			}
-		}
-		return gap < 2
-	}
-	for i := 0; i < len(nums); i++ {
-		for j := i; j < len(nums); j++ {
-			if isIncrease(i, j) {
-				total++
-			}
-		}
-	}
-	return total
-}
+// func incremovableSubarrayCount(nums []int) int {
+// 	total := 0
+// 	isIncrease := func(start, end int) bool {
+// 		gap := 1
+// 		last := -1
+// 		for i := 0; i < len(nums) && gap < 2; i++ {
+// 			if i == start {
+// 				i = end
+// 				continue
+// 			}
+// 			if nums[i] > last {
+// 				last = nums[i]
+// 			} else {
+// 				gap++
+// 			}
+// 		}
+// 		return gap < 2
+// 	}
+// 	for i := 0; i < len(nums); i++ {
+// 		for j := i; j < len(nums); j++ {
+// 			if isIncrease(i, j) {
+// 				total++
+// 			}
+// 		}
+// 	}
+// 	return total
+// }
 
 // @lc code=end
 

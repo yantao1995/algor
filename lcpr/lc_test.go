@@ -9,8 +9,17 @@ import (
 	"testing"
 )
 
+/*
+	1
+	1 2
+	1 2 10
+	1 2 6
+	6
+	1 6
+*/
+
 func TestFunc(t *testing.T) {
-	fmt.Println(incremovableSubarrayCount([]int{8, 7, 6, 6}))
+	fmt.Println()
 }
 
 // 将lcpr插件生成的英文名文件重命名为中文
