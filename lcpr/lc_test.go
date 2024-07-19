@@ -9,15 +9,6 @@ import (
 	"testing"
 )
 
-/*
-	1
-	1 2
-	1 2 10
-	1 2 6
-	6
-	1 6
-*/
-
 func TestFunc(t *testing.T) {
 	fmt.Println()
 }
