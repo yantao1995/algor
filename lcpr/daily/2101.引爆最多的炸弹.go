@@ -65,3 +65,8 @@ func maximumDetonation(bombs [][]int) int {
 // @lcpr case=end
 
 */
+
+/*
+	先用canBomb标记i,j直接是否可以直接引爆
+	然后 dfs 记录链式反应的个数即可
+*/
