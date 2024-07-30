@@ -10,7 +10,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println()
+	fmt.Println(getGoodIndices([][]int{{6, 1, 1, 4}}, 2))
 }
 
 // 将lcpr插件生成的英文名文件重命名为中文
