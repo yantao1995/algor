@@ -10,7 +10,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println(maxmiumScore([]int{7, 1, 5, 8, 3, 3, 1, 2}, 7))
+	fmt.Println()
 }
 
 // 将lcpr插件生成的英文名文件重命名为中文
