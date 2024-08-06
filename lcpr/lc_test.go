@@ -10,7 +10,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println(addOperators("123", 6))
+	fmt.Println()
 }
 
 // 将lcpr插件生成的英文名文件重命名为中文
