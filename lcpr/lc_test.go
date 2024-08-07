@@ -102,6 +102,9 @@ func str2ListNode(str string) *ListNode {
 		h.Next = nd
 		h = h.Next
 	}
+	if len(nodes) == 1 {
+		listNode.Next = nil
+	}
 	return listNode
 }
 
