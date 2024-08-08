@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	test()
+	test2()
 }
 
 func test() {
