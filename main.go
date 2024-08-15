@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"time"
 )
@@ -19,5 +20,6 @@ func getRandQuestion() int {
 }
 
 func test2() {
-
+	a, b := 5, 2
+	fmt.Println(math.Ceil(float64(a) / float64(b)))
 }
