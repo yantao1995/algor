@@ -31,3 +31,11 @@ func TestPrice(t *testing.T) {
 	roundedUp2 := price.Div(step2).Ceil().Mul(step2)
 	fmt.Printf("向上取整结果2: %s\n", roundedUp2)
 }
+
+func TestMul(t *testing.T) {
+	price := decimal.NewFromInt(10)
+	rate := decimal.NewFromFloat(0.2)
+
+	price = price.Add(price.Mul(rate))
+	fmt.Println(price)
+}
