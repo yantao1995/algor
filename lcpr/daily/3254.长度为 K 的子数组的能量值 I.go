@@ -11,20 +11,20 @@ package lcpr
 
 // @lcpr-template-end
 // @lc code=start
-func resultsArray(nums []int, k int) []int {
-	result := make([]int, len(nums)-k+1)
-lab:
-	for i := 0; i+k <= len(nums); i++ {
-		result[i] = -1
-		for j := i + 1; j < i+k; j++ {
-			if nums[j] != nums[j-1]+1 {
-				continue lab
-			}
-		}
-		result[i] = nums[i+k-1]
-	}
-	return result
-}
+// func resultsArray(nums []int, k int) []int {
+// 	result := make([]int, len(nums)-k+1)
+// lab:
+// 	for i := 0; i+k <= len(nums); i++ {
+// 		result[i] = -1
+// 		for j := i + 1; j < i+k; j++ {
+// 			if nums[j] != nums[j-1]+1 {
+// 				continue lab
+// 			}
+// 		}
+// 		result[i] = nums[i+k-1]
+// 	}
+// 	return result
+// }
 
 // @lc code=end
 
