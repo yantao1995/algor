@@ -7,7 +7,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println(maxSubArray([]int{-1}))
+	fmt.Println()
 }
 
 // str 用例  转 一维 string 数组
