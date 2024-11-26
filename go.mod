@@ -5,6 +5,7 @@ go 1.22
 require (
 	github.com/ethereum/go-ethereum v1.12.2
 	github.com/fogleman/gg v1.3.0
+	github.com/jedib0t/go-pretty/v6 v6.6.2
 	github.com/nguyenthenguyen/docx v0.0.0-20230621112118-9c8e795a11db
 	github.com/shopspring/decimal v1.4.0
 	github.com/tealeg/xlsx v1.0.5
@@ -20,6 +21,8 @@ require (
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/holiman/uint256 v1.2.3 // indirect
+	github.com/mattn/go-runewidth v0.0.15 // indirect
+	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/shirou/gopsutil v3.21.4-0.20210419000835-c7a38de76ee5+incompatible // indirect
 	github.com/stretchr/testify v1.9.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.5 // indirect
