@@ -63,10 +63,6 @@ func TestSill(t *testing.T) {
 		Number:   7,
 		WidthMax: 12,
 	}})
-	// 设置查询时间
-	nowFormat := time.Now().Format("query_time : 2006-01-02 15:04:05")
-	tb.AppendRow(table.Row{nowFormat, nowFormat, nowFormat, nowFormat, nowFormat}, table.RowConfig{AutoMerge: true})
-
 	// 渲染并输出表格
-	fmt.Println(tb.Render())
+	fmt.Println(tb.Render() + time.Now().Format("\r\nquery_time : 2006-01-02 15:04:05"))
 }
