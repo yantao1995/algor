@@ -1,10 +1,11 @@
 module algor
 
-go 1.22
+go 1.23.1
 
 require (
 	github.com/ethereum/go-ethereum v1.12.2
 	github.com/fogleman/gg v1.3.0
+	github.com/go-resty/resty/v2 v2.16.2
 	github.com/jedib0t/go-pretty/v6 v6.6.2
 	github.com/nguyenthenguyen/docx v0.0.0-20230621112118-9c8e795a11db
 	github.com/shopspring/decimal v1.4.0
@@ -30,6 +31,7 @@ require (
 	golang.org/x/crypto v0.25.0 // indirect
 	golang.org/x/exp v0.0.0-20230810033253-352e893a4cad // indirect
 	golang.org/x/image v0.18.0 // indirect
+	golang.org/x/net v0.27.0 // indirect
 	golang.org/x/sys v0.22.0 // indirect
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
 )

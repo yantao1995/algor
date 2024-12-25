@@ -10,7 +10,7 @@ import (
 )
 
 func TestFunc(t *testing.T) {
-	fmt.Println()
+	fmt.Println(eatenApples([]int{1}, []int{2}))
 }
 
 // 将lcpr插件生成的英文名文件重命名为中文
