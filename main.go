@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"slices"
 	"time"
 )
 
@@ -19,5 +20,7 @@ func getRandQuestion() int {
 }
 
 func test2() {
-
+	stack := []int{1}
+	stack = slices.Insert(stack, 1, 111)
+	fmt.Println(stack)
 }
