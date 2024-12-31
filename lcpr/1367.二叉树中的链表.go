@@ -27,7 +27,25 @@ package lcpr
  * }
  */
 func isSubPath(head *ListNode, root *TreeNode) bool {
-	return false
+	flag := false
+	var find func(h *ListNode, r *TreeNode) bool
+	find = func(h *ListNode, r *TreeNode) bool {
+		if flag {
+			return true
+		}
+		if h == nil || r == nil {
+			return h == nil && r == nil
+		}
+		if h.Val == r.Val {
+			if find(h.Next, r.Left) || find(h.Next, r.Right) {
+				flag = true
+				return flag
+			}
+		}
+		return find(h, r.Left) || find(h, r.Right)
+	}
+	find(head, root)
+	return flag
 }
 
 // @lc code=end

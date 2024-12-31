@@ -20,6 +20,15 @@ func eatenApples(apples []int, days []int) int {
 	for d := 0; ; d++ {
 
 		if d < len(apples) && apples[d] > 0 && days[d] > 0 {
+
+			for len(stack) > 0 {
+				if d < days[stack[0]]+stack[0] && apples[stack[0]] > 0 {
+					break
+				} else {
+					stack = stack[1:]
+				}
+			}
+
 			idx := 0
 			for ; idx < len(stack); idx++ {
 				if days[d] <= days[stack[idx]]-stack[idx] {
