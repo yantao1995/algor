@@ -1,6 +1,7 @@
 package main
 
 import (
+	"algor/utils"
 	"fmt"
 	"math/rand"
 	"time"
@@ -19,5 +20,7 @@ func getRandQuestion() int {
 }
 
 func test2() {
-
+	ts := int64(1740758400)
+	fmt.Println(utils.GetMonthStart(time.Local, ts))
+	fmt.Println(utils.GetMonthEnd(time.Local, ts))
 }
