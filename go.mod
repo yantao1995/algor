@@ -10,6 +10,7 @@ require (
 	github.com/nguyenthenguyen/docx v0.0.0-20230621112118-9c8e795a11db
 	github.com/shopspring/decimal v1.4.0
 	github.com/tealeg/xlsx v1.0.5
+	golang.org/x/time v0.6.0
 )
 
 require (
